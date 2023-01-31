@@ -8,6 +8,13 @@ let joystick;
 
 window.onload = init;
 
+window.addEventListener('touchmove', disable, {passive: false});
+function disable(){
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
+
 function init(){
     // Get a reference to the canvas
     canvas = document.getElementById('canvas');
