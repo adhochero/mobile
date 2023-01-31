@@ -55,7 +55,7 @@ window.addEventListener("touchend", test, { passive: false });
 function test(e){
     e.preventDefault();
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches.length;
+    elem.innerHTML = e.touches[0].identifier;
 }
 
 
