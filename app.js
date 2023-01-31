@@ -8,13 +8,6 @@ let joystick;
 
 window.onload = init;
 
-window.addEventListener('touchmove', disable, {passive: false});
-function disable(){
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-}
-
 function init(){
     // Get a reference to the canvas
     canvas = document.getElementById('canvas');
@@ -63,8 +56,8 @@ class Joystick{
         this.outerEdge = false;
       
         // register touchstart and touchend events on the canvas
-        window.addEventListener("touchstart", this.handleTouchStart.bind(this));
-        window.addEventListener("touchend", this.handleTouchEnd.bind(this));
+        window.addEventListener("touchstart", this.handleTouchStart.bind(this), { passive: false });
+        window.addEventListener("touchend", this.handleTouchEnd.bind(this), { passive: false });
 
         window.addEventListener("mousedown", this.handleTouchStart.bind(this));
         window.addEventListener("mouseup", this.handleTouchEnd.bind(this));
@@ -79,17 +72,21 @@ class Joystick{
     //
     
     handleTouchStart(event) {
+        event.preventDefault();
+
         // set joystick center
         let touch = event.type === 'touchstart' ? event.touches[0] : event;
         this.joystickCenter.x = touch.clientX;
         this.joystickCenter.y = touch.clientY;
 
         // register touchmove event on the canvas
-        window.addEventListener("touchmove", this.boundHandleTouchMove);
+        window.addEventListener("touchmove", this.boundHandleTouchMove, { passive: false });
         window.addEventListener("mousemove", this.boundHandleTouchMove);
     }
 
     handleTouchMove(event) {
+        event.preventDefault();
+
         // Get the canvas position
         let canvasRect = canvas.getBoundingClientRect();
 
@@ -140,6 +137,8 @@ class Joystick{
     }
 
     handleTouchEnd(event) {
+        event.preventDefault();
+
         // reset the joystick values to 0
         this.joystickValue.x = 0;
         this.joystickValue.y = 0;
