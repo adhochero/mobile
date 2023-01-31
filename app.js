@@ -75,7 +75,7 @@ function handle_two_touches(e){
 
 function handle_three_touches(e){
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[3].identifier;
+    elem.innerHTML = e.touches[2].identifier;
 }
 
 
