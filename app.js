@@ -73,9 +73,11 @@ class Joystick{
     
     handleTouchStart(event) {
         event.preventDefault();
+
+        if (event.touches.length !== 1) return;
         
         // set joystick center
-        let touch = event.type === 'touchstart' ? event.touches[0] : event;
+        let touch = event.type === 'touchstart' ? event.touches[0] : event;3
         this.joystickCenter.x = touch.clientX;
         this.joystickCenter.y = touch.clientY;
 
