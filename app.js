@@ -53,7 +53,7 @@ window.addEventListener("touchstart", test);
 
 function test(e){
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[0].clientX.toString();
+    elem.innerHTML = e.touches[0].toString();
 }
 
 
