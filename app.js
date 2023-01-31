@@ -54,8 +54,28 @@ window.addEventListener("touchend", test, { passive: false });
 
 function test(e){
     e.preventDefault();
+
+    switch (e.touches.length) {
+        case 1: handle_one_touch(e); break;
+        case 2: handle_two_touches(e); break;
+        case 3: handle_three_touches(e); break;
+        default: console.log("Not supported"); break;
+    }
+}
+
+function handle_one_touch(e){
     const elem = document.getElementById('displayText');
     elem.innerHTML = e.touches[0].identifier;
+}
+
+function handle_two_touches(e){
+    const elem = document.getElementById('displayText');
+    elem.innerHTML = e.touches[1].identifier;
+}
+
+function handle_three_touches(e){
+    const elem = document.getElementById('displayText');
+    elem.innerHTML = e.touches[3].identifier;
 }
 
 
