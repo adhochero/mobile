@@ -53,7 +53,12 @@ window.addEventListener("touchstart", test);
 
 function test(e){
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches.length.toString();
+
+    if(e.touches.length > 1){
+        elem.innerHTML = "more than one";
+    }else{
+        elem.innerHTML = "just one";
+    }
 }
 
 
