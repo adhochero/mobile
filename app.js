@@ -15,7 +15,7 @@ function init(){
     canvas.width = 666;
     canvas.height = 333;
 
-    joystick = new Joystick();
+    //joystick = new Joystick();
 
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
@@ -40,11 +40,20 @@ function gameLoop(timeStamp) {
 }
 
 function update() {
-    
+  
 }
 
 function draw() {
     
+}
+
+
+
+window.addEventListener("touchstart", test);
+
+function test(e){
+    const elem = document.getElementById('displayText');
+    elem.innerHTML = touch.identifier.toString();
 }
 
 
@@ -54,7 +63,7 @@ class Joystick{
         this.joystickCenter = {x: 0, y: 0};
         this.joystickValue = {x: 0, y: 0};
         this.outerEdge = false;
-      
+
         // register touchstart and touchend events on the canvas
         window.addEventListener("touchstart", this.handleTouchStart.bind(this), { passive: false });
         window.addEventListener("touchend", this.handleTouchEnd.bind(this), { passive: false });
@@ -73,8 +82,6 @@ class Joystick{
     
     handleTouchStart(event) {
         event.preventDefault();
-
-        if (event.touches.length !== 1) return;
         
         // set joystick center
         let touch = event.type === 'touchstart' ? event.touches[0] : event;3
@@ -125,7 +132,7 @@ class Joystick{
         // this.joystickValue.x = Math.min(Math.max(this.joystickValue.x, -1), 1);
         // this.joystickValue.y = Math.min(Math.max(this.joystickValue.y, -1), 1);
 
-        console.log(this.joystickValue.x, this.joystickValue.y);
+        //console.log(this.joystickValue.x, this.joystickValue.y);
 
         // clear the canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
