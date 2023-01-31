@@ -75,7 +75,7 @@ class Joystick{
         event.preventDefault();
 
         // set joystick center
-        let touch = event.type === 'touchstart' ? event.touches[0] : event;
+        let touch = event;
         this.joystickCenter.x = touch.clientX;
         this.joystickCenter.y = touch.clientY;
 
@@ -91,7 +91,7 @@ class Joystick{
         let canvasRect = canvas.getBoundingClientRect();
 
         // Get the touch start position relative to the canvas
-        let touch = event.type === 'touchmove' ? event.touches[0] : event;
+        let touch = event;
         let startX = (this.joystickCenter.x - canvasRect.left) / canvasRect.width * canvas.width;
         let startY = (this.joystickCenter.y - canvasRect.top) / canvasRect.height * canvas.height;
 
