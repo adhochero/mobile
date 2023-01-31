@@ -49,7 +49,7 @@ function draw() {
 
 
 
-window.addEventListener("touchstart", test);
+window.addEventListener("touchstart", test, { passive: false });
 
 function test(e){
     e.preventDefault();
