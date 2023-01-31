@@ -50,6 +50,7 @@ function draw() {
 
 
 window.addEventListener("touchstart", test, { passive: false });
+window.addEventListener("touchend", test, { passive: false });
 
 function test(e){
     e.preventDefault();
