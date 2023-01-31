@@ -52,6 +52,7 @@ function draw() {
 window.addEventListener("touchstart", test);
 
 function test(e){
+    e.preventDefault();
     const elem = document.getElementById('displayText');
     elem.innerHTML = e.touches.length;
 }
