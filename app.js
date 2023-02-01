@@ -78,7 +78,7 @@ function moveTest(e){
     //if joystickTouchID matches an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID){
-            //calculateJoyValue(e.touches[i]);
+            calculateJoyValue(e.touches[i]);
             elem.innerHTML = joystickTouchID + "<br>" + joystickValue.x + " " + joystickValue.y;
         }
     }
@@ -103,7 +103,7 @@ function calculateJoyValue(touch){
     let distance = Math.sqrt(dx * dx + dy * dy);
 
     // If the distance exceeds the set radius, set the end point to the circumference of a circle with the set radius centered at the start point
-    if (distance > this.joystickRadius) {
+    if (distance > joystickRadius) {
         endX = startX + (dx / distance) * joystickRadius;
         endY = startY + (dy / distance) * joystickRadius;
     }
