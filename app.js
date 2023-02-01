@@ -138,9 +138,6 @@ function endTest(e){
     //or if there are no existing touches
     if (e.touches.length <= 0) resetJoy();
 
-    // clear the canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
     elem.innerHTML = joystickTouchID;
 }
 
@@ -151,6 +148,9 @@ function resetJoy(){
     joystickCenter.y = 0;
     joystickValue.x = 0;
     joystickValue.y = 0;
+
+    // clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 
