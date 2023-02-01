@@ -48,7 +48,7 @@ function draw() {
 }
 
 const elem = document.getElementById('displayText');
-let joystickTouchID = "null";
+let joystickTouchID = 0;
 
 window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
@@ -80,7 +80,7 @@ function endTest(e){
 
     for (let i = 0; i < e.touches.length; i++) {
         if (joystickTouchID === e.touches[i].identifier) return;
-        joystickTouchID = e.touches[i].identifier;
+        joystickTouchID = 0;
     }
 
     elem.innerHTML = joystickTouchID;
