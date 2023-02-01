@@ -52,6 +52,7 @@ let joystickTouchID = "";
 let joystickRadius = 80;
 let joystickCenter = {x: 0, y: 0};
 let joystickValue = {x: 0, y: 0};
+let outerEdge = false;
 
 window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
@@ -106,11 +107,25 @@ function calculateJoyValue(touch){
     if (distance > joystickRadius) {
         endX = startX + (dx / distance) * joystickRadius;
         endY = startY + (dy / distance) * joystickRadius;
+
+        outerEdge = true;
+    } else{
+        outerEdge = false;
     }
 
     //get joystick value
     joystickValue.x = (endX - startX) / joystickRadius;
     joystickValue.y = (endY - startY) / joystickRadius;
+
+    // clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    //DRAW JOYSTICK MOVEMENT LINE
+    context.beginPath();
+    context.strokeStyle = outerEdge ? "red" : "black";
+    context.moveTo(startX, startY);
+    context.lineTo(endX, endY);
+    context.stroke();
 }
 
 function endTest(e){
@@ -130,6 +145,9 @@ function endTest(e){
     joystickValue.x = 0;
     joystickValue.y = 0;
 
+    // clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    
     elem.innerHTML = joystickTouchID;
 }
 
