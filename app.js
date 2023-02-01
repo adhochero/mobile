@@ -78,7 +78,7 @@ function moveTest(e){
     //if joystickTouchID matches an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID){
-            calculateJoyValue(e.touches[i]);
+            //calculateJoyValue(e.touches[i]);
             elem.innerHTML = joystickTouchID + "<br>" + joystickValue.x + " " + joystickValue.y;
         }
     }
