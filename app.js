@@ -69,8 +69,8 @@ function moveTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {
-        if (e.touches[i].identifier !== joystickTouchID) return;
-        elem.innerHTML = e.touches[i].clientX;
+        if (e.touches[i].identifier === joystickTouchID)
+            elem.innerHTML = e.touches[i].clientX.toString() + " " + e.touches[i].clientY.toString();
     }
     
 }
@@ -79,8 +79,8 @@ function endTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {
-        if (joystickTouchID === e.touches[i].identifier) return;
-        joystickTouchID = 0;
+        if (e.touches[i].identifier !== joystickTouchID)
+            joystickTouchID = 0;
     }
 
     elem.innerHTML = joystickTouchID;
