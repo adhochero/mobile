@@ -71,7 +71,7 @@ function moveTest(e){
     let myIndex = e.touches.findIndex((touch) => touch.identifier === joystickTouchID);
 
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[myIndex].clientX.toString() + " " + e.touches[myIndex].clientY.toString();
+    elem.innerHTML = myIndex;
 }
 
 
