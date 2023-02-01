@@ -49,11 +49,11 @@ function draw() {
 
 let joystickTouchID = null;
 
-window.addEventListener("touchstart", test, { passive: false });
+window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
-window.addEventListener("touchend", test, { passive: false });
+window.addEventListener("touchend", endTest, { passive: false });
 
-function test(e){
+function startTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {
@@ -69,9 +69,14 @@ function moveTest(e){
     e.preventDefault();
 
     let myIndex = e.touches.findIndex((touch) => touch.identifier === joystickTouchID);
+    if(myIndex < 0) return;
 
     const elem = document.getElementById('displayText');
-    elem.innerHTML = 'moving';
+    elem.innerHTML = myIndex;
+}
+
+function endTest(e){
+    
 }
 
 
