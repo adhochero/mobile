@@ -80,7 +80,7 @@ function moveTest(e){
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID){
             calculateJoyValue(e.touches[i]);
-            elem.innerHTML = joystickTouchID + "<br>" + joystickCenter.x + " " + joystickCenter.y;
+            elem.innerHTML = joystickTouchID + "<br>" + joystickValue.x + " " + joystickValue.y;
         }
     }
     
