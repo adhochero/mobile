@@ -50,6 +50,7 @@ function draw() {
 let joystickTouchID = null;
 
 window.addEventListener("touchstart", test, { passive: false });
+window.addEventListener("touchmove", moveTest, { passive: false });
 window.addEventListener("touchend", test, { passive: false });
 
 function test(e){
@@ -62,28 +63,15 @@ function test(e){
 
     const elem = document.getElementById('displayText');
     elem.innerHTML = e.touches[0].identifier;
-
-    // switch (e.touches.length) {
-    //     case 1: handle_one_touch(e); break;
-    //     case 2: handle_two_touches(e); break;
-    //     case 3: handle_three_touches(e); break;
-    //     default: console.log("Not supported"); break;
-    // }
 }
 
-function handle_one_touch(e){
-    const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[0].identifier;
-}
+function moveTest(e){
+    e.preventDefault();
 
-function handle_two_touches(e){
-    const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[1].identifier;
-}
+    let myIndex = e.touches.findIndex((touch) => touch.identifier === joystickTouchID);
 
-function handle_three_touches(e){
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[2].identifier;
+    elem.innerHTML = e.touches[myIndex].clientX + ' ' + e.touches[myIndex].clientY;
 }
 
 
