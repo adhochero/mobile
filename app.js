@@ -57,9 +57,9 @@ window.addEventListener("touchend", endTest, { passive: false });
 function startTest(e){
     e.preventDefault();
 
-    for (let i = 0; i < e.touches.length; i++) {
-        if (joystickTouchID === e.touches[i].identifier) return;
-        joystickTouchID = e.touches[i].identifier;
+    for (let i = 0; i < e.touches.length; i++) {    
+        if (e.touches[i].identifier !== joystickTouchID)
+            joystickTouchID = e.touches[i].identifier;
     }
 
     elem.innerHTML = joystickTouchID;
@@ -70,7 +70,7 @@ function moveTest(e){
 
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID)
-            elem.innerHTML = e.touches[i].clientX + " " + e.touches[i].clientY;
+            elem.innerHTML = joystickTouchID + "<br>" + e.touches[i].clientX + " " + e.touches[i].clientY;
     }
     
 }
@@ -78,10 +78,12 @@ function moveTest(e){
 function endTest(e){
     e.preventDefault();
 
+    //if joystickTouchID doesnt match an existing touch
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier !== joystickTouchID)
             joystickTouchID = 0;
     }
+    //or if there are no existing touches
     if (e.touches.length <= 0) joystickTouchID = 0;
 
     elem.innerHTML = joystickTouchID;
