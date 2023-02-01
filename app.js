@@ -70,7 +70,7 @@ function moveTest(e){
 
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID)
-            elem.innerHTML = e.touches[i].clientX.toString() + " " + e.touches[i].clientY.toString();
+            elem.innerHTML = e.touches[i].clientX + " " + e.touches[i].clientY;
     }
     
 }
@@ -82,6 +82,7 @@ function endTest(e){
         if (e.touches[i].identifier !== joystickTouchID)
             joystickTouchID = 0;
     }
+    if (e.touches.length <= 0) joystickTouchID = 0;
 
     elem.innerHTML = joystickTouchID;
 }
