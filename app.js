@@ -47,6 +47,7 @@ function draw() {
     
 }
 
+const elem = document.getElementById('displayText');
 let joystickTouchID = "null";
 
 window.addEventListener("touchstart", startTest, { passive: false });
@@ -57,21 +58,21 @@ function startTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {
-        if (joystickTouchID !== "null") return;
+        if (joystickTouchID === e.touches[i].identifier) return;
         joystickTouchID = e.touches[i].identifier;
     }
 
-    const elem = document.getElementById('displayText');
     elem.innerHTML = joystickTouchID;
 }
 
 function moveTest(e){
     e.preventDefault();
 
-    let myIndex = e.touches.findIndex((touch) => touch.identifier === joystickTouchID);
-
-    const elem = document.getElementById('displayText');
-    elem.innerHTML = myIndex;
+    for (let i = 0; i < e.touches.length; i++) {
+        if (e.touches[i].identifier !== joystickTouchID) return;
+        elem.innerHTML = e.touches[i].clientX;
+    }
+    
 }
 
 function endTest(e){
