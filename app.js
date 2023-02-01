@@ -47,7 +47,7 @@ function draw() {
     
 }
 
-let joystickTouchID = null;
+let joystickTouchID = "null";
 
 window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
@@ -57,7 +57,7 @@ function startTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {
-        if (joystickTouchID !== null) return;
+        if (joystickTouchID !== "null") return;
         joystickTouchID = e.touches[i].identifier;
     }
 
@@ -80,7 +80,7 @@ function endTest(e){
 
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier !== joystickTouchID) return;
-        joystickTouchID = null;
+        joystickTouchID = "null";
     }
 
     const elem = document.getElementById('displayText');
