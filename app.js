@@ -51,7 +51,6 @@ const elem = document.getElementById('displayText');
 let joystickTouchID = "";
 
 window.addEventListener("touchstart", startTest, { passive: false });
-window.addEventListener("touchmove", moveTest, { passive: false });
 window.addEventListener("touchend", endTest, { passive: false });
 
 function startTest(e){
@@ -64,6 +63,9 @@ function startTest(e){
     }
 
     elem.innerHTML = joystickTouchID;
+
+
+    window.addEventListener("touchmove", moveTest, { passive: false });
 }
 
 function moveTest(e){
@@ -88,7 +90,9 @@ function endTest(e){
     //or if there are no existing touches
     if (e.touches.length <= 0) joystickTouchID = "";
 
-    elem.innerHTML = joystickTouchID;
+    //elem.innerHTML = joystickTouchID;
+
+    window.removeEventListener("touchmove", moveTest);
 }
 
 
