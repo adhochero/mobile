@@ -58,7 +58,7 @@ function startTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {    
-        if (e.touches[i].identifier !== joystickTouchID)
+        if (joystickTouchID === 0)
             joystickTouchID = e.touches[i].identifier;
     }
 
