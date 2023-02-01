@@ -80,7 +80,7 @@ function moveTest(e){
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID){
             calculateJoyValue(e.touches[i]);
-            elem.innerHTML = joystickTouchID + "<br>" + joystickValue.x + " " + joystickValue.y;
+            elem.innerHTML = joystickTouchID + "<br>" + joystickCenter.x + " " + joystickCenter.y;
         }
     }
     
@@ -147,7 +147,7 @@ function endTest(e){
 
     // clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
-    
+
     elem.innerHTML = joystickTouchID;
 }
 
