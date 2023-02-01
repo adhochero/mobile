@@ -79,12 +79,11 @@ function endTest(e){
     e.preventDefault();
 
     for (let i = 0; i < e.touches.length; i++) {
-        if (e.touches[i].identifier !== joystickTouchID) return;
-        joystickTouchID = "null";
+        if (joystickTouchID === e.touches[i].identifier) return;
+        joystickTouchID = e.touches[i].identifier;
     }
 
-    const elem = document.getElementById('displayText');
-    elem.innerHTML = "null";
+    elem.innerHTML = joystickTouchID;
 }
 
 
