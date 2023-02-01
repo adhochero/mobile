@@ -133,22 +133,24 @@ function endTest(e){
 
     //if joystickTouchID doesnt match an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
-        if (e.touches[i].identifier !== joystickTouchID){
-            joystickTouchID = "";
-        }
+        if (e.touches[i].identifier !== joystickTouchID) resetJoy();
     }
     //or if there are no existing touches
-    if (e.touches.length <= 0) joystickTouchID = "";
-
-    joystickCenter.x = 0;
-    joystickCenter.y = 0;
-    joystickValue.x = 0;
-    joystickValue.y = 0;
+    if (e.touches.length <= 0) resetJoy();
 
     // clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     elem.innerHTML = joystickTouchID;
+}
+
+function resetJoy(){
+    joystickTouchID = "";
+
+    joystickCenter.x = 0;
+    joystickCenter.y = 0;
+    joystickValue.x = 0;
+    joystickValue.y = 0;
 }
 
 
