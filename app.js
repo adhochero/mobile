@@ -48,7 +48,7 @@ function draw() {
 }
 
 const elem = document.getElementById('displayText');
-let joystickTouchID = 0;
+let joystickTouchID = "";
 
 window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
@@ -57,8 +57,9 @@ window.addEventListener("touchend", endTest, { passive: false });
 function startTest(e){
     e.preventDefault();
 
+    //if joystickTouchID is blank
     for (let i = 0; i < e.touches.length; i++) {    
-        if (joystickTouchID === 0)
+        if (joystickTouchID === "")
             joystickTouchID = e.touches[i].identifier;
     }
 
@@ -68,6 +69,7 @@ function startTest(e){
 function moveTest(e){
     e.preventDefault();
 
+    //if joystickTouchID matches an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier === joystickTouchID)
             elem.innerHTML = joystickTouchID + "<br>" + e.touches[i].clientX + " " + e.touches[i].clientY;
@@ -78,13 +80,13 @@ function moveTest(e){
 function endTest(e){
     e.preventDefault();
 
-    //if joystickTouchID doesnt match an existing touch
+    //if joystickTouchID doesnt match an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
         if (e.touches[i].identifier !== joystickTouchID)
-            joystickTouchID = 0;
+            joystickTouchID = "";
     }
     //or if there are no existing touches
-    if (e.touches.length <= 0) joystickTouchID = 0;
+    if (e.touches.length <= 0) joystickTouchID = "";
 
     elem.innerHTML = joystickTouchID;
 }
