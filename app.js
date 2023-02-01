@@ -51,6 +51,7 @@ const elem = document.getElementById('displayText');
 let joystickTouchID = "";
 
 window.addEventListener("touchstart", startTest, { passive: false });
+window.addEventListener("touchmove", moveTest, { passive: false });
 window.addEventListener("touchend", endTest, { passive: false });
 
 function startTest(e){
