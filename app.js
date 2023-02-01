@@ -58,7 +58,7 @@ function startTest(e){
 
     for (let i = 0; i < e.touches.length; i++) {
         if (joystickTouchID !== null) return;
-        joystickTouchID = joystickTouchID;
+        joystickTouchID = e.touches[i].identifier;
     }
 
     const elem = document.getElementById('displayText');
@@ -76,7 +76,7 @@ function moveTest(e){
 }
 
 function endTest(e){
-    
+
 }
 
 
