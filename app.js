@@ -69,14 +69,15 @@ function moveTest(e){
     e.preventDefault();
 
     let myIndex = e.touches.findIndex((touch) => touch.identifier === joystickTouchID);
-    if(myIndex < 0) return;
+    if (myIndex < 0) return;
 
     const elem = document.getElementById('displayText');
-    elem.innerHTML = myIndex;
+    elem.innerHTML = 'index';
 }
 
 function endTest(e){
-
+    const elem = document.getElementById('displayText');
+    elem.innerHTML = e;
 }
 
 
