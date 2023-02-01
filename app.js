@@ -47,7 +47,7 @@ function draw() {
     
 }
 
-
+let joystickTouchID = null;
 
 window.addEventListener("touchstart", test, { passive: false });
 window.addEventListener("touchend", test, { passive: false });
@@ -55,12 +55,20 @@ window.addEventListener("touchend", test, { passive: false });
 function test(e){
     e.preventDefault();
 
-    switch (e.touches.length) {
-        case 1: handle_one_touch(e); break;
-        case 2: handle_two_touches(e); break;
-        case 3: handle_three_touches(e); break;
-        default: console.log("Not supported"); break;
+    for (let i = 0; i < e.touches.length; i++) {
+        if (joystickTouchID !== null) return;
+        joystickTouchID = joystickTouchID;
     }
+
+    const elem = document.getElementById('displayText');
+    elem.innerHTML = e.touches[0].identifier;
+
+    // switch (e.touches.length) {
+    //     case 1: handle_one_touch(e); break;
+    //     case 2: handle_two_touches(e); break;
+    //     case 3: handle_three_touches(e); break;
+    //     default: console.log("Not supported"); break;
+    // }
 }
 
 function handle_one_touch(e){
