@@ -49,6 +49,9 @@ function draw() {
 
 const elem = document.getElementById('displayText');
 let joystickTouchID = "";
+let joystickRadius = 80;
+let joystickCenter = {x: 0, y: 0};
+let joystickValue = {x: 0, y: 0};
 
 window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
@@ -59,8 +62,11 @@ function startTest(e){
 
     //if joystickTouchID is blank
     for (let i = 0; i < e.touches.length; i++) {    
-        if (joystickTouchID === "")
+        if (joystickTouchID === ""){
             joystickTouchID = e.touches[i].identifier;
+            joystickCenter.x = e.touches[i].clientX;
+            joystickCenter.y = e.touches[i].clientY;
+        }
     }
 
     elem.innerHTML = joystickTouchID;
@@ -71,10 +77,40 @@ function moveTest(e){
 
     //if joystickTouchID matches an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
-        if (e.touches[i].identifier === joystickTouchID)
-            elem.innerHTML = joystickTouchID + "<br>" + e.touches[i].clientX + " " + e.touches[i].clientY;
+        if (e.touches[i].identifier === joystickTouchID){
+            calculateJoyValue(e.touches[i]);
+            elem.innerHTML = joystickTouchID + "<br>" + joystickValue.x + " " + joystickValue.y;
+        }
     }
     
+}
+
+function calculateJoyValue(touch){
+    // Get the canvas position
+    let canvasRect = canvas.getBoundingClientRect();
+
+    // Get the touch start position relative to the canvas
+    let startX = (joystickCenter.x - canvasRect.left) / canvasRect.width * canvas.width;
+    let startY = (joystickCenter.y - canvasRect.top) / canvasRect.height * canvas.height;
+
+    // Get the touch position relative to the canvas
+    let endX = (touch.clientX - canvasRect.left) / canvasRect.width * canvas.width;
+    let endY = (touch.clientY - canvasRect.top) / canvasRect.height * canvas.height;
+
+    // Calculate the distance between the start and end points
+    let dx = endX - startX;
+    let dy = endY - startY;
+    let distance = Math.sqrt(dx * dx + dy * dy);
+
+    // If the distance exceeds the set radius, set the end point to the circumference of a circle with the set radius centered at the start point
+    if (distance > this.joystickRadius) {
+        endX = startX + (dx / distance) * joystickRadius;
+        endY = startY + (dy / distance) * joystickRadius;
+    }
+
+    //get joystick value
+    joystickValue.x = (endX - startX) / joystickRadius;
+    joystickValue.y = (endY - startY) / joystickRadius;
 }
 
 function endTest(e){
@@ -82,11 +118,17 @@ function endTest(e){
 
     //if joystickTouchID doesnt match an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
-        if (e.touches[i].identifier !== joystickTouchID)
+        if (e.touches[i].identifier !== joystickTouchID){
             joystickTouchID = "";
+        }
     }
     //or if there are no existing touches
     if (e.touches.length <= 0) joystickTouchID = "";
+
+    joystickCenter.x = 0;
+    joystickCenter.y = 0;
+    joystickValue.x = 0;
+    joystickValue.y = 0;
 
     elem.innerHTML = joystickTouchID;
 }
