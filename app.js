@@ -62,7 +62,7 @@ function startTest(e){
     }
 
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e.touches[0].identifier;
+    elem.innerHTML = joystickTouchID;
 }
 
 function moveTest(e){
@@ -76,8 +76,15 @@ function moveTest(e){
 }
 
 function endTest(e){
+    e.preventDefault();
+
+    for (let i = 0; i < e.touches.length; i++) {
+        if (e.touches[i].identifier !== joystickTouchID) return;
+        joystickTouchID = null;;
+    }
+
     const elem = document.getElementById('displayText');
-    elem.innerHTML = e;
+    elem.innerHTML = joystickTouchID;
 }
 
 
