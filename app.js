@@ -53,20 +53,26 @@ let joystickRadius = 80;
 let joystickCenter = {x: 0, y: 0};
 let joystickValue = {x: 0, y: 0};
 let outerEdge = false;
+let notjoyTouches = [];
 
 window.addEventListener("touchstart", startTest, { passive: false });
 window.addEventListener("touchmove", moveTest, { passive: false });
 window.addEventListener("touchend", endTest, { passive: false });
+
+//TODO: if 1st touch ends while 2nd touch is down and then 3rd starts 2nd touch becomes joy.
+//it shouldnt only make the new touch joy after first touch ends, not the one that start while another joy exisits.
 
 function startTest(e){
     e.preventDefault();
 
     //if joystickTouchID is blank
     for (let i = 0; i < e.touches.length; i++) {    
-        if (joystickTouchID === ""){
+        if (joystickTouchID === "" && !notjoyTouches.includes(e.touches[i].identifier)){
             joystickTouchID = e.touches[i].identifier;
             joystickCenter.x = e.touches[i].clientX;
             joystickCenter.y = e.touches[i].clientY;
+        }else{
+            notjoyTouches.push(e.touches[i].identifier);
         }
     }
 
@@ -131,9 +137,19 @@ function calculateJoyValue(touch){
 function endTest(e){
     e.preventDefault();
 
-    //if joystickTouchID doesnt match an existing touchID
     for (let i = 0; i < e.touches.length; i++) {
+        //if joystickTouchID doesnt match an existing touchID
         if (e.touches[i].identifier !== joystickTouchID) resetJoy();
+
+        //remove id from notjoyTouches array when touchend
+        if (!notjoyTouches.includes(e.touches[i].identifier))
+        {
+            let index = notjoyTouches.indexOf(e.touches[i].identifier);
+            if (index > -1)
+            {
+                notjoyTouches.splice(index, 1);
+            }
+        }
     }
     //or if there are no existing touches
     if (e.touches.length <= 0) resetJoy();
