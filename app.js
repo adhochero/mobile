@@ -56,10 +56,12 @@ function draw(context) {
 
 
     //DRAW JOYSTICK MOVEMENT LINE
+    context.save();
     context.strokeStyle = outerEdge ? "red" : "black";
     context.moveTo(startX, startY);
     context.lineTo(endX, endY);
     context.stroke();
+    context.restore();
 }
 
 const elem = document.getElementById('displayText');
