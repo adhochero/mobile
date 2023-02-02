@@ -88,7 +88,7 @@ export class Joystick{
         let distance = Math.sqrt(dx * dx + dy * dy);
     
         // If the distance exceeds the set radius, set the end point to the circumference of a circle with the set radius centered at the start point
-        if (distance > joystickRadius) {
+        if (distance > this.joystickRadius) {
             this.touchEnd.x = this.touchStart.x + (dx / distance) * this.joystickRadius;
             this.touchEnd.y = this.touchStart.y + (dy / distance) * this.joystickRadius;
     
@@ -101,7 +101,7 @@ export class Joystick{
         this.joystickValue.x = (this.touchEnd.x - this.touchStart.x) / this.joystickRadius;
         this.joystickValue.y = (this.touchEnd.y - this.touchStart.y) / this.joystickRadius;
 
-        this.elem.innerHTML = 'calculate ran';
+        this.elem.innerHTML = this.joystickValue;
     }
 
     resetJoy(){
