@@ -12,6 +12,10 @@ export class Joystick{
         this.touchEnd = {x: 0, y: 0};
         this.notjoyTouches = [];
 
+        this.startTouch = this.startTouch.bind(this);
+        this.moveTouch = this.moveTouch.bind(this);
+        this.endTouch = this.endTouch.bind(this);
+
         window.addEventListener("touchstart", this.startTouch, { passive: false });
         window.addEventListener("touchmove", this.moveTouch, { passive: false });
         window.addEventListener("touchend", this.endTouch, { passive: false }); 
@@ -38,7 +42,7 @@ export class Joystick{
         //if joystickTouchID matches an existing touchID
         for (let i = 0; i < e.touches.length; i++) {
             if (e.touches[i].identifier === this.joystickTouchID){
-                calculateJoyValue(e.touches[i]);
+                this.calculateJoyValue(e.touches[i]);
             }
         }
         
@@ -49,7 +53,7 @@ export class Joystick{
     
         for (let i = 0; i < e.touches.length; i++) {
             //if joystickTouchID doesnt match an existing touchID
-            if (e.touches[i].identifier !== this.joystickTouchID) resetJoy();
+            if (e.touches[i].identifier !== this.joystickTouchID) this.resetJoy();
     
             //remove id from notjoyTouches array when touchend
             if (!this.notjoyTouches.includes(e.touches[i].identifier))
@@ -62,7 +66,7 @@ export class Joystick{
             }
         }
         //or if there are no existing touches
-        if (e.touches.length <= 0) resetJoy();
+        if (e.touches.length <= 0) this.resetJoy();
     }
 
     calculateJoyValue(touch){
@@ -70,8 +74,8 @@ export class Joystick{
         let canvasRect = this.canvas.getBoundingClientRect();
     
         // Get the touch start position relative to the canvas
-        this.touchStart.x = (joystickCenter.x - canvasRect.left) / canvasRect.width * canvas.width;
-        this.touchStart.y = (joystickCenter.y - canvasRect.top) / canvasRect.height * canvas.height;
+        this.touchStart.x = (this.joystickCenter.x - canvasRect.left) / canvasRect.width * canvas.width;
+        this.touchStart.y = (this.joystickCenter.y - canvasRect.top) / canvasRect.height * canvas.height;
     
         // Get the touch position relative to the canvas
         this.touchEnd.x = (touch.clientX - canvasRect.left) / canvasRect.width * canvas.width;
