@@ -50,8 +50,16 @@ function update() {
 function draw(context) {
     // clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
+
     context.beginPath();
     entity.draw(context)
+
+
+    //DRAW JOYSTICK MOVEMENT LINE
+    context.strokeStyle = outerEdge ? "red" : "black";
+    context.moveTo(startX, startY);
+    context.lineTo(endX, endY);
+    context.stroke();
 }
 
 const elem = document.getElementById('displayText');
@@ -59,6 +67,10 @@ let joystickTouchID = "";
 let joystickRadius = 80;
 let joystickCenter = {x: 0, y: 0};
 let joystickValue = {x: 0, y: 0};
+let startX;
+let startY;
+let endX;
+let endY;
 let outerEdge = false;
 let notjoyTouches = [];
 
@@ -127,12 +139,12 @@ function calculateJoyValue(touch){
     let canvasRect = canvas.getBoundingClientRect();
 
     // Get the touch start position relative to the canvas
-    let startX = (joystickCenter.x - canvasRect.left) / canvasRect.width * canvas.width;
-    let startY = (joystickCenter.y - canvasRect.top) / canvasRect.height * canvas.height;
+    startX = (joystickCenter.x - canvasRect.left) / canvasRect.width * canvas.width;
+    startY = (joystickCenter.y - canvasRect.top) / canvasRect.height * canvas.height;
 
     // Get the touch position relative to the canvas
-    let endX = (touch.clientX - canvasRect.left) / canvasRect.width * canvas.width;
-    let endY = (touch.clientY - canvasRect.top) / canvasRect.height * canvas.height;
+    endX = (touch.clientX - canvasRect.left) / canvasRect.width * canvas.width;
+    endY = (touch.clientY - canvasRect.top) / canvasRect.height * canvas.height;
 
     // Calculate the distance between the start and end points
     let dx = endX - startX;
@@ -154,14 +166,14 @@ function calculateJoyValue(touch){
     joystickValue.y = (endY - startY) / joystickRadius;
 
     // clear the canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.clearRect(0, 0, canvas.width, canvas.height);
 
-    //DRAW JOYSTICK MOVEMENT LINE
-    context.beginPath();
-    context.strokeStyle = outerEdge ? "red" : "black";
-    context.moveTo(startX, startY);
-    context.lineTo(endX, endY);
-    context.stroke();
+    // //DRAW JOYSTICK MOVEMENT LINE
+    // context.beginPath();
+    // context.strokeStyle = outerEdge ? "red" : "black";
+    // context.moveTo(startX, startY);
+    // context.lineTo(endX, endY);
+    // context.stroke();
 }
 
 function resetJoy(){
