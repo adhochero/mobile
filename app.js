@@ -18,7 +18,7 @@ function init(){
     canvas.width = 666;
     canvas.height = 333;
 
-    entity = new Entity({x: joystickValue.x, y: joystickValue.y});
+    entity = new Entity(joystickValue);
     //joystick = new Joystick();
 
     // Start the first frame request
@@ -36,15 +36,15 @@ function gameLoop(timeStamp) {
     fps = Math.round(1 / secondsPassed);
 
     //functions to run each frame
-    update();
+    update(secondsPassed);
     draw(context);
 
     // Keep requesting new frames
     window.requestAnimationFrame(gameLoop);
 }
 
-function update() {
-  
+function update(secondsPassed) {
+    entity.update(secondsPassed);
 }
 
 function draw(context) {
