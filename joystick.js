@@ -101,7 +101,7 @@ export class Joystick{
         this.joystickValue.x = (this.touchEnd.x - this.touchStart.x) / this.joystickRadius;
         this.joystickValue.y = (this.touchEnd.y - this.touchStart.y) / this.joystickRadius;
 
-        this.elem.innerHTML = this.joystickValue;
+        this.elem.innerHTML = this.joystickValue.x + " " + this.joystickValue.y;
     }
 
     resetJoy(){
