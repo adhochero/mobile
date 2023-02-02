@@ -32,6 +32,7 @@ export class Entity{
     draw(context){
         //draw sprite
         context.save();
+        context.beginPath();
         // context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
         // context.scale(this.inputDirection.x < 0 ? -1 : 1, 1);  //This does your mirroring/flipping
         context.strokeStyle = "black";
