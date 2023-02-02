@@ -1,9 +1,12 @@
+import { Entity } from "./entity.js";
+
 let canvas;
 let context;
 let secondsPassed = 0;
 let oldTimeStamp = 0;
 let fps = 0;
 
+let entity;
 let joystick;
 
 window.onload = init;
@@ -15,6 +18,7 @@ function init(){
     canvas.width = 666;
     canvas.height = 333;
 
+    entity = new Entity({x: joystickValue.x, y: joystickValue.y});
     //joystick = new Joystick();
 
     // Start the first frame request
@@ -33,7 +37,7 @@ function gameLoop(timeStamp) {
 
     //functions to run each frame
     update();
-    draw();
+    draw(context);
 
     // Keep requesting new frames
     window.requestAnimationFrame(gameLoop);
@@ -43,8 +47,11 @@ function update() {
   
 }
 
-function draw() {
-    
+function draw(context) {
+    // clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    entity.draw(context)
 }
 
 const elem = document.getElementById('displayText');
@@ -65,8 +72,8 @@ window.addEventListener("touchend", endTest, { passive: false });
 function startTest(e){
     e.preventDefault();
 
-    //if joystickTouchID is blank
     for (let i = 0; i < e.touches.length; i++) {    
+        //if joystickTouchID is blank and is not a notjoytouch
         if (joystickTouchID === "" && !notjoyTouches.includes(e.touches[i].identifier)){
             joystickTouchID = e.touches[i].identifier;
             joystickCenter.x = e.touches[i].clientX;
@@ -90,6 +97,29 @@ function moveTest(e){
         }
     }
     
+}
+
+function endTest(e){
+    e.preventDefault();
+
+    for (let i = 0; i < e.touches.length; i++) {
+        //if joystickTouchID doesnt match an existing touchID
+        if (e.touches[i].identifier !== joystickTouchID) resetJoy();
+
+        //remove id from notjoyTouches array when touchend
+        if (!notjoyTouches.includes(e.touches[i].identifier))
+        {
+            let index = notjoyTouches.indexOf(e.touches[i].identifier);
+            if (index > -1)
+            {
+                notjoyTouches.splice(index, 1);
+            }
+        }
+    }
+    //or if there are no existing touches
+    if (e.touches.length <= 0) resetJoy();
+
+    elem.innerHTML = joystickTouchID;
 }
 
 function calculateJoyValue(touch){
@@ -134,29 +164,6 @@ function calculateJoyValue(touch){
     context.stroke();
 }
 
-function endTest(e){
-    e.preventDefault();
-
-    for (let i = 0; i < e.touches.length; i++) {
-        //if joystickTouchID doesnt match an existing touchID
-        if (e.touches[i].identifier !== joystickTouchID) resetJoy();
-
-        //remove id from notjoyTouches array when touchend
-        if (!notjoyTouches.includes(e.touches[i].identifier))
-        {
-            let index = notjoyTouches.indexOf(e.touches[i].identifier);
-            if (index > -1)
-            {
-                notjoyTouches.splice(index, 1);
-            }
-        }
-    }
-    //or if there are no existing touches
-    if (e.touches.length <= 0) resetJoy();
-
-    elem.innerHTML = joystickTouchID;
-}
-
 function resetJoy(){
     joystickTouchID = "";
 
@@ -168,7 +175,6 @@ function resetJoy(){
     // clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
-
 
 class Joystick{
     constructor(){
