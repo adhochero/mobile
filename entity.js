@@ -9,8 +9,7 @@ export class Entity{
         this.position = {x: 333, y: 250};
         this.inputResponsiveness = 8;
         this.moveSpeed = 200;
-
-        this.radius = 40;
+        this.secPerFrame = 0.125;;
 
         this.sprite = new AnimatedSprite(
             document.getElementById('walk'),
@@ -21,7 +20,7 @@ export class Entity{
             5, //total rows
             1, //current row
             4, //frames on row
-            0.125, //sec per frame
+            this.secPerFrame, //sec per frame
             false
         );
 
@@ -47,40 +46,45 @@ export class Entity{
         //update sprite
         this.sprite.updateSprite(secondsPassed);
 
+        //spf adjust with move speed
+        let inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
+        let variableSPF = this.secPerFrame * inputValueAbs;
+
+        //change sprite row for direction
         if(this.inputDirection.y > 0.75)
         {
             if(this.sprite.currentRow != 1) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 1;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.125;
+            this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < 0.75 && this.inputDirection.y > 0.25)
         {
             if(this.sprite.currentRow != 2) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 2;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.125;
+            this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < 0.25 && this.inputDirection.y > -0.25)
         {
             if(this.sprite.currentRow != 3) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 3;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.125;
+            this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < -0.25 && this.inputDirection.y > -0.75)
         {
             if(this.sprite.currentRow != 4) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 4;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.125;
+            this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < -0.75)
         {
             if(this.sprite.currentRow != 5) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 5;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.125;
+            this.sprite.secPerFrame = variableSPF;
         }
     }
 
@@ -91,9 +95,6 @@ export class Entity{
         context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
         context.scale(this.inputDirection.x < 0 ? -1 : 1, 1);  //This does your mirroring/flipping
         this.sprite.drawSprite(context); //draw x/y is 0, position set on translate
-        // context.strokeStyle = "black";
-        // context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI); //draw x/y is 0, position set on translate
-        // context.stroke();
         context.restore();
     }
 
