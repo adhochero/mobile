@@ -33,8 +33,6 @@ export class Joystick{
                 this.joystickCenter.y = e.touches[i].clientY;
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
-                this.elem.innerHTML = "ping " + i;
-                setTimeout(() => {this.elem.innerHTML = "";}, 1000);
             }
         }
     }
@@ -65,8 +63,6 @@ export class Joystick{
                 if (index > -1)
                 {
                     this.notjoyTouches.splice(index, 1);
-                    this.elem.innerHTML = "gone " + i;
-                    setTimeout(() => {this.elem.innerHTML = "";}, 1000);
                 }
             }
         }
@@ -107,6 +103,8 @@ export class Joystick{
     }
 
     resetJoy(){
+        this.elem.innerHTML = "resetJoy ";
+        setTimeout(() => {this.elem.innerHTML = "";}, 1000);
         this.joystickTouchID = "";
     
         this.joystickCenter.x = 0;
