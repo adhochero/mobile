@@ -77,25 +77,29 @@ export class Entity{
         
         //update sprite
         this.walkAnim.updateSprite(secondsPassed);
+
+        const magnitude = Math.sqrt(this.inputDirection.x * this.inputDirection.x + this.inputDirection.y * this.inputDirection.y);
+        let normalized = {x: this.inputDirection.x / magnitude, y: this.inputDirection.y / magnitude};
+        let dot = normalized.x + normalized.y;
         
         //change sprite row for direction
-        if(this.inputDirection.y > 0.75){
+        if(dot > 0.90){
             this.walkAnim.currentRow = 1;
             this.idleAnim.currentRow = 1;
         }
-        else if(this.inputDirection.y < 0.75 && this.inputDirection.y > 0.25){
+        else if(dot < 0.90 && dot > 0.30){
             this.walkAnim.currentRow = 2;
             this.idleAnim.currentRow = 2;
         }
-        else if(this.inputDirection.y < 0.25 && this.inputDirection.y > -0.25){
+        else if(dot < 0.30 && dot > -0.30){
             this.walkAnim.currentRow = 3;
             this.idleAnim.currentRow = 3;
         }
-        else if(this.inputDirection.y < -0.25 && this.inputDirection.y > -0.75){
+        else if(dot < -0.30 && dot > -0.90){
             this.walkAnim.currentRow = 4;
             this.idleAnim.currentRow = 4;
         }
-        else if(this.inputDirection.y < -0.75){
+        else if(dot < -0.90){
             this.walkAnim.currentRow = 5;
             this.idleAnim.currentRow = 5;
         }
