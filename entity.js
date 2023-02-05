@@ -9,7 +9,7 @@ export class Entity{
         this.position = {x: 333, y: 250};
         this.inputResponsiveness = 8;
         this.moveSpeed = 200;
-        this.secPerFrame = 0.10;;
+        this.secPerFrame = 0.10;
 
         this.sprite = new AnimatedSprite(
             document.getElementById('walk'),
@@ -53,35 +53,30 @@ export class Entity{
         //change sprite row for direction
         if(this.inputDirection.y > 0.75)
         {
-            if(this.sprite.currentRow != 1) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 1;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < 0.75 && this.inputDirection.y > 0.25)
         {
-            if(this.sprite.currentRow != 2) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 2;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < 0.25 && this.inputDirection.y > -0.25)
         {
-            if(this.sprite.currentRow != 3) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 3;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < -0.25 && this.inputDirection.y > -0.75)
         {
-            if(this.sprite.currentRow != 4) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 4;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < -0.75)
         {
-            if(this.sprite.currentRow != 5) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 5;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = variableSPF;
