@@ -1,6 +1,7 @@
 export class Joystick{
     constructor(canvas){
         this.canvas = canvas;
+        this.elem = document.getElementById('displayText');
 
         this.joystickTouchID = "";
         this.joystickRadius = 80;
@@ -32,6 +33,7 @@ export class Joystick{
                 this.joystickCenter.y = e.touches[i].clientY;
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
+                this.elem.innerHTML = e.touches[i].identifier;
             }
         }
     }

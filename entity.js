@@ -2,8 +2,6 @@ import { AnimatedSprite } from "./animatedSprite.js";
 
 export class Entity{
     constructor(inputDirection, startPosition, inputResponsiveness, moveSpeed){
-        this.elem = document.getElementById('displayText');
-
         this.inputDirection = inputDirection;
         this.inputSmoothing = {x: 0, y: 0};
         this.velocity = {x: 0, y: 0};
@@ -71,13 +69,11 @@ export class Entity{
         //switch between idle and walk
         if(this.inputValueAbs === 0){
             this.idleAnim.updateSprite(secondsPassed);
-            this.elem.innerHTML = "idling";
             return;
         }
         
         //sprite update
         this.walkAnim.updateSprite(secondsPassed);
-        this.elem.innerHTML = "walking";
         
         //adjust secPerFrame according to inputDirection value
         this.walkAnim.secPerFrame  = Math.min(this.walkSecPerFrameMin / this.inputValueAbs, this.walkSecPerFrameMax);
