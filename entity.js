@@ -59,6 +59,8 @@ export class Entity{
         this.position.x += this.moveDirection.x * secondsPassed;
         this.position.y += this.moveDirection.y * secondsPassed;
         
+
+        
         //spf adjust with inputDirection value
         this.inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
         let variableSPF = Math.min(this.walkSecPerFrame / this.inputValueAbs, 0.2);
@@ -78,22 +80,27 @@ export class Entity{
         //change sprite row for direction
         if(this.inputDirection.y > 0.75){
             this.walkAnim.currentRow = 1;
+            this.idleAnim.currentRow = 1;
             this.walkAnim.walkSecPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < 0.75 && this.inputDirection.y > 0.25){
             this.walkAnim.currentRow = 2;
+            this.idleAnim.currentRow = 2;
             this.walkAnim.walkSecPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < 0.25 && this.inputDirection.y > -0.25){
             this.walkAnim.currentRow = 3;
+            this.idleAnim.currentRow = 3;
             this.walkAnim.walkSecPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < -0.25 && this.inputDirection.y > -0.75){
             this.walkAnim.currentRow = 4;
+            this.idleAnim.currentRow = 4;
             this.walkAnim.walkSecPerFrame = variableSPF;
         }
         else if(this.inputDirection.y < -0.75){
             this.walkAnim.currentRow = 5;
+            this.idleAnim.currentRow = 5;
             this.walkAnim.walkSecPerFrame = variableSPF;
         }
     }
