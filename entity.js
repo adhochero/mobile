@@ -12,16 +12,16 @@ export class Entity{
         this.inputResponsiveness = inputResponsiveness;
         this.moveSpeed = moveSpeed;
 
-        this.inputValueAbs = 0;
         this.walkSecPerFrameMin = 0.16;
         this.walkSecPerFrameMax = 0.2;
+        this.inputValueAbs = 0;
         this.lookingLeft = false;
 
         this.idleSheet = document.getElementById('idle');
         this.walkSheet = document.getElementById('walk');
 
         this.idleAnim = new AnimatedSprite(
-            this.idleSheet,
+            this.idleSheet, //sprite sheet
             8, //scale
             0, //position.x,
             0, //position.y,
@@ -34,7 +34,7 @@ export class Entity{
         );
 
         this.walkAnim = new AnimatedSprite(
-            this.walkSheet,
+            this.walkSheet, //sprite sheet
             8, //scale
             0, //position.x,
             0, //position.y,
