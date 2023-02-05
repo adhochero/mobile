@@ -16,7 +16,7 @@ export class Joystick{
         this.moveTouch = this.moveTouch.bind(this);
         this.endTouch = this.endTouch.bind(this);
 
-        window.addEventListener("touchstart", this.startTouch, { passive: false });
+        canvas.addEventListener("touchstart", this.startTouch, { passive: false });
         window.addEventListener("touchmove", this.moveTouch, { passive: false });
         window.addEventListener("touchend", this.endTouch, { passive: false }); 
     }
