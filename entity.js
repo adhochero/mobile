@@ -21,7 +21,7 @@ export class Entity{
             5, //total rows
             1, //current row
             4, //frames on row
-            0.12, //sec per frame
+            0.125, //sec per frame
             false
         );
 
@@ -52,37 +52,36 @@ export class Entity{
             if(this.sprite.currentRow != 1) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 1;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.26;
+            this.sprite.secPerFrame = 0.125;
         }
         else if(this.inputDirection.y < 0.75 && this.inputDirection.y > 0.25)
         {
             if(this.sprite.currentRow != 2) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 2;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.26;
+            this.sprite.secPerFrame = 0.125;
         }
         else if(this.inputDirection.y < 0.25 && this.inputDirection.y > -0.25)
         {
             if(this.sprite.currentRow != 3) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 3;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.26;
+            this.sprite.secPerFrame = 0.125;
         }
         else if(this.inputDirection.y < -0.25 && this.inputDirection.y > -0.75)
         {
             if(this.sprite.currentRow != 4) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 4;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.26;
+            this.sprite.secPerFrame = 0.125;
         }
         else if(this.inputDirection.y < -0.75)
         {
             if(this.sprite.currentRow != 5) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 5;
             this.sprite.framesOnRow = 4;
-            this.sprite.secPerFrame = 0.26;
+            this.sprite.secPerFrame = 0.125;
         }
-
     }
 
     draw(context){
