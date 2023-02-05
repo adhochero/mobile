@@ -69,20 +69,19 @@ export class Entity{
         //switch between idle and walk
         if(this.inputValueAbs === 0){
             this.idleAnim.updateSprite(secondsPassed);
-            //this.elem.innerHTML = "idling";
+            this.elem.innerHTML = "idling";
             return;
         }
 
-        //this.elem.innerHTML = "walking";
+        this.elem.innerHTML = "walking";
         
         //update sprite
         this.walkAnim.updateSprite(secondsPassed);
 
+        //get dot value after normalizing input
         const magnitude = Math.sqrt(this.inputDirection.x * this.inputDirection.x + this.inputDirection.y * this.inputDirection.y);
-        let normalized = {x: this.inputDirection.x / magnitude, y: this.inputDirection.y / magnitude};
-        let dot = normalized.x * 0 + normalized.y * 1;
-
-        this.elem.innerHTML = dot;
+        const normalized = {x: this.inputDirection.x / magnitude, y: this.inputDirection.y / magnitude};
+        const dot = normalized.x * 0 + normalized.y * 1;
         
         //change sprite row for direction
         if(dot > 0.90){
