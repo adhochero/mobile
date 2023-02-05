@@ -1,3 +1,5 @@
+import { AnimatedSprite } from "./animatedSprite.js";
+
 export class Entity{
     constructor(inputDirection){
         this.inputDirection = inputDirection;
@@ -9,6 +11,20 @@ export class Entity{
         this.moveSpeed = 200;
 
         this.radius = 40;
+
+        this.sprite = new AnimatedSprite(
+            document.getElementById('walk'),
+            8, //scale
+            0, //position.x,
+            0, //position.y,
+            5, //total columns
+            4, //total rows
+            1, //current row
+            4, //frames on row
+            0.12, //sec per frame
+            false
+        );
+
     }
 
     update(secondsPassed){
@@ -27,17 +43,58 @@ export class Entity{
         //move
         this.position.x += this.moveDirection.x * secondsPassed;
         this.position.y += this.moveDirection.y * secondsPassed;
+
+        //update sprite
+        this.sprite.updateSprite(secondsPassed);
+
+        if(this.inputDirection.y > 0.75)
+        {
+            if(this.sprite.currentRow != 1) this.sprite.currentFrame = 0;
+            this.sprite.currentRow = 1;
+            this.sprite.framesOnRow = 4;
+            this.sprite.secPerFrame = 0.26;
+        }
+        else if(this.inputDirection.y < 0.25 && this.inputDirection.y < 0.75)
+        {
+            if(this.sprite.currentRow != 2) this.sprite.currentFrame = 0;
+            this.sprite.currentRow = 2;
+            this.sprite.framesOnRow = 4;
+            this.sprite.secPerFrame = 0.26;
+        }
+        else if(this.inputDirection.y < -0.25 && this.inputDirection.y < 0.25)
+        {
+            if(this.sprite.currentRow != 3) this.sprite.currentFrame = 0;
+            this.sprite.currentRow = 3;
+            this.sprite.framesOnRow = 4;
+            this.sprite.secPerFrame = 0.26;
+        }
+        else if(this.inputDirection.y < -0.75 && this.inputDirection.y < -0.25)
+        {
+            if(this.sprite.currentRow != 4) this.sprite.currentFrame = 0;
+            this.sprite.currentRow = 4;
+            this.sprite.framesOnRow = 4;
+            this.sprite.secPerFrame = 0.26;
+        }
+        else if(this.inputDirection.y < -0.75)
+        {
+            if(this.sprite.currentRow != 5) this.sprite.currentFrame = 0;
+            this.sprite.currentRow = 5;
+            this.sprite.framesOnRow = 4;
+            this.sprite.secPerFrame = 0.26;
+        }
+
     }
 
     draw(context){
         //draw sprite
         context.save();
         context.beginPath();
-        // context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
-        // context.scale(this.inputDirection.x < 0 ? -1 : 1, 1);  //This does your mirroring/flipping
-        context.strokeStyle = "black";
-        context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI); //draw x/y is 0, position set on translate
-        context.stroke();
+        context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
+        context.scale(this.inputDirection.x < 0 ? -1 : 1, 1);  //This does your mirroring/flipping
+        this.sprite.drawSprite(context); //draw x/y is 0, position set on translate
+        // context.strokeStyle = "black";
+        // context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI); //draw x/y is 0, position set on translate
+        // context.stroke();
         context.restore();
     }
 
