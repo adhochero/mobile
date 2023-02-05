@@ -1,36 +1,27 @@
 import { AnimatedSprite } from "./animatedSprite.js";
 
 export class Entity{
-    constructor(inputDirection){
+    constructor(inputDirection, startPosition, inputResponsiveness, moveSpeed){
         this.elem = document.getElementById('displayText');
 
         this.inputDirection = inputDirection;
         this.inputSmoothing = {x: 0, y: 0};
         this.velocity = {x: 0, y: 0};
         this.moveDirection = {x: 0, y: 0};
-        this.position = {x: 333, y: 250};
-        this.inputResponsiveness = 8;
-        this.moveSpeed = 200;
+        this.position = startPosition;
+        this.inputResponsiveness = inputResponsiveness;
+        this.moveSpeed = moveSpeed;
 
         this.inputValueAbs = 0;
-        this.walkSecPerFrame = 0.16;
+        this.walkSecPerFrameMin = 0.16;
+        this.walkSecPerFrameMax = 0.2;
         this.lookingLeft = false;
 
-        this.walkAnim = new AnimatedSprite(
-            document.getElementById('walk'),
-            8, //scale
-            0, //position.x,
-            0, //position.y,
-            4, //total columns
-            5, //total rows
-            1, //current row
-            4, //frames on row
-            this.walkSecPerFrame, //sec per frame
-            false
-        );
+        this.idleSheet = document.getElementById('idle');
+        this.walkSheet = document.getElementById('walk');
 
         this.idleAnim = new AnimatedSprite(
-            document.getElementById('idle'),
+            this.idleSheet,
             8, //scale
             0, //position.x,
             0, //position.y,
@@ -39,6 +30,19 @@ export class Entity{
             1, //current row
             2, //frames on row
             0.5, //sec per frame
+            false
+        );
+
+        this.walkAnim = new AnimatedSprite(
+            this.walkSheet,
+            8, //scale
+            0, //position.x,
+            0, //position.y,
+            4, //total columns
+            5, //total rows
+            1, //current row
+            4, //frames on row
+            this.walkSecPerFrameMin, //sec per frame
             false
         );
     }
@@ -76,7 +80,7 @@ export class Entity{
         this.elem.innerHTML = "walking";
         
         //adjust secPerFrame according to inputDirection value
-        this.walkAnim.secPerFrame  = Math.min(this.walkSecPerFrame / this.inputValueAbs, 0.2);
+        this.walkAnim.secPerFrame  = Math.min(this.walkSecPerFrameMin / this.inputValueAbs, this.walkSecPerFrameMax);
 
         //get dot value of normalized input
         const magnitude = Math.sqrt(this.inputDirection.x * this.inputDirection.x + this.inputDirection.y * this.inputDirection.y);

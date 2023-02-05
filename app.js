@@ -20,7 +20,12 @@ function init(){
     canvas.height = 333;
 
     joystick = new Joystick(canvas);
-    entity = new Entity(joystick.joystickValue);
+    entity = new Entity(
+        joystick.joystickValue,
+        {x: canvas.width * 0.5, y: canvas.height * 0.5},
+        8,
+        200
+    );
 
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
