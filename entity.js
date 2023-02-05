@@ -9,7 +9,7 @@ export class Entity{
         this.position = {x: 333, y: 250};
         this.inputResponsiveness = 8;
         this.moveSpeed = 200;
-        this.secPerFrame = 0.10;
+        this.secPerFrame = 0.09;
 
         this.sprite = new AnimatedSprite(
             document.getElementById('walk'),
@@ -48,7 +48,7 @@ export class Entity{
 
         //spf adjust with inputDirection value
         let inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
-        let variableSPF = Math.min(this.secPerFrame / inputValueAbs, 0.25);
+        let variableSPF = Math.min(this.secPerFrame / inputValueAbs, 0.2);
 
 
         //change sprite row for direction
