@@ -1,7 +1,6 @@
 export class Joystick{
     constructor(canvas){
         this.canvas = canvas;
-        this.elem = document.getElementById('displayText');
 
         this.joystickTouchID = "";
         this.joystickRadius = 80;
@@ -100,8 +99,6 @@ export class Joystick{
         //get joystick value
         this.joystickValue.x = (this.touchEnd.x - this.touchStart.x) / this.joystickRadius;
         this.joystickValue.y = (this.touchEnd.y - this.touchStart.y) / this.joystickRadius;
-
-        this.elem.innerHTML = this.joystickValue.x + " " + this.joystickValue.y;
     }
 
     resetJoy(){
