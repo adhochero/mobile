@@ -13,7 +13,7 @@ export class Entity{
         this.moveSpeed = 200;
 
         this.inputValueAbs = 0;
-        this.walkSecPerFrame = 0.12;
+        this.walkSecPerFrame = 0.14;
 
         this.walkAnim = new AnimatedSprite(
             document.getElementById('walk'),
