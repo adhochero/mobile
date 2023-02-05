@@ -75,7 +75,7 @@ export class Joystick{
         // if (e.touches.length <= 0) this.resetJoy();
         
         //if joystickTouchID doesnt match an existing touchID
-        if(e.touches.some(touch => touch.identifier !== this.joystickTouchID)){
+        if(e.touches.some(touch => touch.identifier === this.joystickTouchID)){
             this.resetJoy();
             this.elem.innerHTML = "resetJoy ";
             setTimeout(() => {this.elem.innerHTML = "";}, 1000);
