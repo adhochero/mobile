@@ -9,7 +9,7 @@ export class Entity{
         this.position = {x: 333, y: 250};
         this.inputResponsiveness = 8;
         this.moveSpeed = 200;
-        this.secPerFrame = 0.09;
+        this.secPerFrame = 0.12;
 
         this.sprite = new AnimatedSprite(
             document.getElementById('walk'),
