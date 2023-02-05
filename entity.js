@@ -62,21 +62,20 @@ export class Entity{
         
 
 
+        //switch between idle and walk
+        if(this.inputValueAbs === 0){
+            this.elem.innerHTML = "idling";
+            this.idleAnim.updateSprite(secondsPassed);
+            return;
+        }
+        
+        //sprite update
+        this.elem.innerHTML = "walking";
+        this.walkAnim.updateSprite(secondsPassed);
+        
         //spf adjust with inputDirection value
         this.inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
         this.walkAnim.secPerFrame  = Math.min(this.walkSecPerFrame / this.inputValueAbs, 0.2);
-
-        //switch between idle and walk
-        if(this.inputValueAbs === 0){
-            this.idleAnim.updateSprite(secondsPassed);
-            this.elem.innerHTML = "idling";
-            return;
-        }
-
-        this.elem.innerHTML = "walking";
-        
-        //update sprite
-        this.walkAnim.updateSprite(secondsPassed);
 
         //get dot value after normalizing input
         const magnitude = Math.sqrt(this.inputDirection.x * this.inputDirection.x + this.inputDirection.y * this.inputDirection.y);
