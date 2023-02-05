@@ -37,7 +37,7 @@ export class Entity{
             5, //total rows
             1, //current row
             2, //frames on row
-            this.walkSecPerFrame, //sec per frame
+            0.5, //sec per frame
             false
         );
     }
