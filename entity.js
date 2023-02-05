@@ -105,11 +105,13 @@ export class Entity{
         context.save();
         context.beginPath();
         context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
-        if (this.inputValueAbs !== 0)
-            context.scale(this.inputDirection.x < 0 ? -1 : 1, 1);  //This does your mirroring/flipping
+        if(this.inputDirection.x < 0)
+            context.scale(-1, 1); //This does your mirroring/flipping
+        if(this.inputDirection.x > 0)
+            context.scale(1, 1); //This does your mirroring/flipping   
         this.inputValueAbs === 0 ?
-        this.idleAnim.drawSprite(context) : //draw x/y is 0, position set on translate
-        this.walkAnim.drawSprite(context); 
+            this.idleAnim.drawSprite(context) : //draw x/y is 0, position set on translate
+            this.walkAnim.drawSprite(context); 
         context.restore();
     }
 
