@@ -55,4 +55,10 @@ function draw(context) {
 
     joystick.draw(context);
     entity.draw(context);
+
+    //draw fps
+    context.fillStyle = "#fff";
+    context.font = "14px Special Elite";
+    context.textAlign = "center";
+    context.fillText("FPS: "+ fps, 40, 20);
 }
