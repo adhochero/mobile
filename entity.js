@@ -17,8 +17,8 @@ export class Entity{
             8, //scale
             0, //position.x,
             0, //position.y,
-            5, //total columns
-            4, //total rows
+            4, //total columns
+            5, //total rows
             1, //current row
             4, //frames on row
             0.12, //sec per frame
