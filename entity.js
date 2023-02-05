@@ -9,7 +9,7 @@ export class Entity{
         this.position = {x: 333, y: 250};
         this.inputResponsiveness = 8;
         this.moveSpeed = 200;
-        this.secPerFrame = 0.125;;
+        this.secPerFrame = 0.10;;
 
         this.sprite = new AnimatedSprite(
             document.getElementById('walk'),
@@ -46,7 +46,7 @@ export class Entity{
         //update sprite
         this.sprite.updateSprite(secondsPassed);
 
-        //spf adjust with move speed
+        //spf adjust with inputDirection value
         let inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
         let variableSPF = this.secPerFrame / inputValueAbs;
 
