@@ -54,21 +54,21 @@ export class Entity{
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = 0.26;
         }
-        else if(this.inputDirection.y < 0.25 && this.inputDirection.y < 0.75)
+        else if(this.inputDirection.y < 0.75 && this.inputDirection.y > 0.25)
         {
             if(this.sprite.currentRow != 2) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 2;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = 0.26;
         }
-        else if(this.inputDirection.y < -0.25 && this.inputDirection.y < 0.25)
+        else if(this.inputDirection.y < 0.25 && this.inputDirection.y > -0.25)
         {
             if(this.sprite.currentRow != 3) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 3;
             this.sprite.framesOnRow = 4;
             this.sprite.secPerFrame = 0.26;
         }
-        else if(this.inputDirection.y < -0.75 && this.inputDirection.y < -0.25)
+        else if(this.inputDirection.y < -0.25 && this.inputDirection.y > -0.75)
         {
             if(this.sprite.currentRow != 4) this.sprite.currentFrame = 0;
             this.sprite.currentRow = 4;
