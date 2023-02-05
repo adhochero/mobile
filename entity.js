@@ -48,7 +48,8 @@ export class Entity{
 
         //spf adjust with inputDirection value
         let inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
-        let variableSPF = this.secPerFrame / inputValueAbs;
+        let variableSPF = Math.max(this.secPerFrame / inputValueAbs, 0.05);
+
 
         //change sprite row for direction
         if(this.inputDirection.y > 0.75)
