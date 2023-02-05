@@ -65,6 +65,8 @@ export class Joystick{
                 if (index > -1)
                 {
                     this.notjoyTouches.splice(index, 1);
+                    this.elem.innerHTML = "gone " + i;
+                    setTimeout(() => {this.elem.innerHTML = "";}, 1000);
                 }
             }
         }
