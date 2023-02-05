@@ -33,7 +33,8 @@ export class Joystick{
                 this.joystickCenter.y = e.touches[i].clientY;
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
-                //this.elem.innerHTML = e.touches[i].identifier;
+                this.elem.innerHTML = "ping";
+                setTimeout(() => {this.elem.innerHTML = "";}, 1000);
             }
         }
     }
