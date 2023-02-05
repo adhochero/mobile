@@ -28,7 +28,7 @@ function init(){
     joystick = new Joystick(canvas);
 
     entity = new Entity(
-        isMobile != 0 ? joystick.joystickValue : wasd.inputDirection,
+        isMobile ? joystick.joystickValue : wasd.inputDirection,
         {x: canvas.width * 0.5, y: canvas.height * 0.5},
         8,
         200
