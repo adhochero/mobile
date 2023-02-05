@@ -31,6 +31,8 @@ export class Joystick{
                 this.joystickTouchID = e.touches[i].identifier;
                 this.joystickCenter.x = e.touches[i].clientX;
                 this.joystickCenter.y = e.touches[i].clientY;
+                this.elem.innerHTML = this.joystickTouchID;
+                setTimeout(() => {this.elem.innerHTML = "";}, 1000);
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
             }
@@ -80,6 +82,9 @@ export class Joystick{
             this.elem.innerHTML = "resetJoy ";
             setTimeout(() => {this.elem.innerHTML = "";}, 1000);
         }
+
+        this.elem.innerHTML = this.joystickTouchID;
+        setTimeout(() => {this.elem.innerHTML = "";}, 1000);
     }
 
     calculateJoyValue(touch){
