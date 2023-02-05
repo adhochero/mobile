@@ -61,23 +61,24 @@ export class Entity{
         this.position.y += this.moveDirection.y * secondsPassed;
         
 
-
+        //get abs value of input
+        this.inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
+        
         //switch between idle and walk
         if(this.inputValueAbs === 0){
-            this.elem.innerHTML = "idling";
             this.idleAnim.updateSprite(secondsPassed);
+            this.elem.innerHTML = "idling";
             return;
         }
         
         //sprite update
-        this.elem.innerHTML = "walking";
         this.walkAnim.updateSprite(secondsPassed);
+        this.elem.innerHTML = "walking";
         
-        //spf adjust with inputDirection value
-        this.inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
+        //adjust secPerFrame according to inputDirection value
         this.walkAnim.secPerFrame  = Math.min(this.walkSecPerFrame / this.inputValueAbs, 0.2);
 
-        //get dot value after normalizing input
+        //get dot value of normalized input
         const magnitude = Math.sqrt(this.inputDirection.x * this.inputDirection.x + this.inputDirection.y * this.inputDirection.y);
         const normalized = {x: this.inputDirection.x / magnitude, y: this.inputDirection.y / magnitude};
         const dot = normalized.x * 0 + normalized.y * 1;
