@@ -33,6 +33,8 @@ export class Joystick{
                 this.joystickCenter.y = e.touches[i].clientY;
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
+                this.elem.innerHTML = "tap";
+                setTimeout(this.elem.innerHTML = "", 2500);
             }
         }
     }
@@ -54,9 +56,7 @@ export class Joystick{
         let resetJoy = true;
     
         for (let i = 0; i < e.touches.length; i++) {
-            //if joystickTouchID doesnt match an existing touchID
-            // if (e.touches[i].identifier !== this.joystickTouchID)
-            //     this.resetJoy();
+            //if joystickTouchID matches an existing touchID
             if (e.touches[i].identifier === this.joystickTouchID)
                 resetJoy = false;
 
@@ -70,8 +70,7 @@ export class Joystick{
                 }
             }
         }
-        //or if there are no existing touches
-        // if (e.touches.length <= 0) this.resetJoy();
+
         if (resetJoy) this.resetJoy();
     }
 
