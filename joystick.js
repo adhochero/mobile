@@ -121,9 +121,14 @@ export class Joystick{
     draw(context){
         if(this.joystickValue.x === 0 && this.joystickValue.x === 0) return;
 
-        var gradient = context.createLinearGradient(0, 0, 170, 0);
+        var gradient = context.createLinearGradient(
+            this.touchStart.x,
+            this.touchStart.y,
+            this.touchEnd.x,
+            this.touchEnd.y);
         gradient.addColorStop("0", "lightgrey");
         gradient.addColorStop("1.0", "grey");
+
         //DRAW JOYSTICK
         context.beginPath();
         context.strokeStyle = gradient;//this.outerEdge ? "black" : "grey";
