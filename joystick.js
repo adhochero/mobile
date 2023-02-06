@@ -34,7 +34,7 @@ export class Joystick{
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
                 this.elem.innerHTML = "tap";
-                setTimeout(() => {this.elem.innerHTML = ""}, 250)
+                setTimeout(() => {this.elem.innerHTML = ""},100);
             }
         }
     }
