@@ -56,8 +56,8 @@ export class Joystick{
     
         for (let i = 0; i < e.touches.length; i++) {
             //if joystickTouchID doesnt match an existing touchID
-            if (e.touches[i].identifier !== this.joystickTouchID)
-                this.resetJoy();
+            // if (e.touches[i].identifier !== this.joystickTouchID)
+            //     this.resetJoy();
 
             //remove id from notjoyTouches array when touchend
             if (!this.notjoyTouches.includes(e.touches[i].identifier))
@@ -70,10 +70,10 @@ export class Joystick{
             }
         }
         //or if there are no existing touches
-        if (e.touches.length <= 0) this.resetJoy();
+        // if (e.touches.length <= 0) this.resetJoy();
         
         //if joystickTouchID doesnt match an existing touchID
-        if(e.touches.some(touch => touch.identifier !== this.joystickTouchID)){
+        if(!e.touches.some(touch => touch.identifier === this.joystickTouchID)){
             this.elem.innerHTML = this.joystickTouchID + " no match";
             setTimeout(() => {this.elem.innerHTML = "";}, 1000);
         }
