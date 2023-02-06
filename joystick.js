@@ -35,6 +35,8 @@ export class Joystick{
                 this.notjoyTouches.push(e.touches[i].identifier);
             }
         }
+
+        this.elem.innerHTML = e.touches.some(touch => touch.identifier === this.joystickTouchID);
     }
 
     moveTouch(e){
@@ -69,14 +71,6 @@ export class Joystick{
         }
         //or if there are no existing touches
         if (e.touches.length <= 0) this.resetJoy();
-        
-        //if joystickTouchID doesnt match an existing touchID
-        // if(e.touches.some(touch => touch.identifier === this.joystickTouchID)){
-        //     this.elem.innerHTML = this.joystickTouchID + " match";
-        //     setTimeout(() => {this.elem.innerHTML = "";}, 1000);
-        // }
-
-        this.elem.innerHTML = e.touches.some(touch => touch.identifier === this.joystickTouchID).toString();
     }
 
     calculateJoyValue(touch){
