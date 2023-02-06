@@ -33,7 +33,7 @@ export class Joystick{
                 this.joystickCenter.y = e.touches[i].clientY;
             }else{
                 this.notjoyTouches.push(e.touches[i].identifier);
-                this.elem.innerHTML = "tap";
+                this.elem.innerHTML = e.touches[i].identifier + " " + this.joystickTouchID;
                 setTimeout(() => {this.elem.innerHTML = ""},100);
             }
         }
