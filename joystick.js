@@ -25,53 +25,58 @@ export class Joystick{
     startTouch(e){
         e.preventDefault();
     
-        for (let i = 0; i < e.touches.length; i++) {    
-            //if joystickTouchID is blank and is not a notjoytouch
-            if (this.joystickTouchID === "" && !this.notjoyTouches.includes(e.touches[i].identifier)){
-                this.joystickTouchID = e.touches[i].identifier;
-                this.joystickCenter.x = e.touches[i].clientX;
-                this.joystickCenter.y = e.touches[i].clientY;
-            }else{
-                this.notjoyTouches.push(e.touches[i].identifier);
-                this.elem.innerHTML = e.touches[i].identifier + " " + this.joystickTouchID;
-                setTimeout(() => {this.elem.innerHTML = ""},100);
-            }
-        }
+        // for (let i = 0; i < e.touches.length; i++) {    
+        //     //if joystickTouchID is blank and is not a notjoytouch
+        //     if (this.joystickTouchID === "" && !this.notjoyTouches.includes(e.touches[i].identifier)){
+        //         this.joystickTouchID = e.touches[i].identifier;
+        //         this.joystickCenter.x = e.touches[i].clientX;
+        //         this.joystickCenter.y = e.touches[i].clientY;
+        //     }else{
+        //         this.notjoyTouches.push(e.touches[i].identifier);
+        //         this.elem.innerHTML = e.touches[i].identifier + " " + this.joystickTouchID;
+        //         setTimeout(() => {this.elem.innerHTML = ""},100);
+        //     }
+        // }
+
+        this.joystickCenter.x = e.touches[0].clientX;
+        this.joystickCenter.y = e.touches[0].clientY
     }
 
     moveTouch(e){
         e.preventDefault();
     
         //if joystickTouchID matches an existing touchID
-        for (let i = 0; i < e.touches.length; i++) {
-            if (e.touches[i].identifier === this.joystickTouchID){
-                this.calculateJoyValue(e.touches[i]);
-            }
-        }
+        // for (let i = 0; i < e.touches.length; i++) {
+        //     if (e.touches[i].identifier === this.joystickTouchID){
+        //         this.calculateJoyValue(e.touches[i]);
+        //     }
+        // }
         
+        this.calculateJoyValue(e.touches[0]);
     }
 
     endTouch(e){
         e.preventDefault();
-        let resetJoy = true;
+        // let resetJoy = true;
     
-        for (let i = 0; i < e.touches.length; i++) {
-            //if joystickTouchID matches an existing touchID
-            if (e.touches[i].identifier === this.joystickTouchID)
-                resetJoy = false;
+        // for (let i = 0; i < e.touches.length; i++) {
+        //     //if joystickTouchID matches an existing touchID
+        //     if (e.touches[i].identifier === this.joystickTouchID)
+        //         resetJoy = false;
 
-            //remove id from notjoyTouches array when touchend
-            if (!this.notjoyTouches.includes(e.touches[i].identifier))
-            {
-                let index = this.notjoyTouches.indexOf(e.touches[i].identifier);
-                if (index > -1)
-                {
-                    this.notjoyTouches.splice(index, 1);
-                }
-            }
-        }
+        //     //remove id from notjoyTouches array when touchend
+        //     if (!this.notjoyTouches.includes(e.touches[i].identifier))
+        //     {
+        //         let index = this.notjoyTouches.indexOf(e.touches[i].identifier);
+        //         if (index > -1)
+        //         {
+        //             this.notjoyTouches.splice(index, 1);
+        //         }
+        //     }
+        // }
 
-        if (resetJoy) this.resetJoy();
+        // if (resetJoy) 
+            this.resetJoy();
     }
 
     calculateJoyValue(touch){
