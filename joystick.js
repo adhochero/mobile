@@ -58,7 +58,7 @@ export class Joystick{
                 this.resetJoy();
 
             // if(Object.values(e.touches[i]).includes(this.joystickTouchID))
-                this.elem.innerHTML = Object.values(e.touches[i]).includes(this.joystickTouchID);
+                this.elem.innerHTML = Object.values(e.touches[i]);//.includes(this.joystickTouchID);
 
             //remove id from notjoyTouches array when touchend
             if (!this.notjoyTouches.includes(e.touches[i].identifier))
