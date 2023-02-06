@@ -35,8 +35,6 @@ export class Joystick{
                 this.notjoyTouches.push(e.touches[i].identifier);
             }
         }
-
-        this.elem.innerHTML = e.touches.some(touch => touch.identifier === this.joystickTouchID);
     }
 
     moveTouch(e){
@@ -58,6 +56,9 @@ export class Joystick{
             //if joystickTouchID doesnt match an existing touchID
             if (e.touches[i].identifier !== this.joystickTouchID)
                 this.resetJoy();
+
+            // if(Object.values(e.touches[i]).includes(this.joystickTouchID))
+                this.elem.innerHTML = Object.values(e.touches[i]).includes(this.joystickTouchID);
 
             //remove id from notjoyTouches array when touchend
             if (!this.notjoyTouches.includes(e.touches[i].identifier))
