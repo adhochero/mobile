@@ -119,22 +119,24 @@ export class Joystick{
     }
 
     draw(context){
-        //DRAW JOYSTICK MOVEMENT LINE
+        if(this.joystickValue.x === 0 && this.joystickValue.x === 0) return;
+        
+        //DRAW JOYSTICK
         context.beginPath();
         context.strokeStyle = this.outerEdge ? "black" : "grey";
         context.moveTo(this.touchStart.x, this.touchStart.y);
         context.lineTo(this.touchEnd.x, this.touchEnd.y);
-        context.lineWidth = 10;
+        context.lineWidth = 2;
         context.stroke();
 
         context.beginPath();
-        context.arc(this.touchStart.x, this.touchStart.y, 30, 0, 2 * Math.PI);
+        context.arc(this.touchStart.x, this.touchStart.y, 40, 0, 2 * Math.PI);
         context.strokeStyle = "grey";
         context.lineWidth = 4;
         context.stroke();
 
         context.beginPath();
-        context.arc(this.touchEnd.x, this.touchEnd.y, 20, 0, 2 * Math.PI);
+        context.arc(this.touchEnd.x, this.touchEnd.y, 38, 0, 2 * Math.PI);
         context.strokeStyle = "black";
         context.lineWidth = 6;
         context.stroke();
