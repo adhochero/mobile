@@ -121,7 +121,7 @@ export class Joystick{
     draw(context){
         if(this.joystickValue.x === 0 && this.joystickValue.x === 0) return;
 
-        var gradient = ctx.createLinearGradient(0, 0, 170, 0);
+        var gradient = context.createLinearGradient(0, 0, 170, 0);
         gradient.addColorStop("0", "lightgrey");
         gradient.addColorStop("1.0", "grey");
         //DRAW JOYSTICK
