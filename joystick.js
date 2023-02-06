@@ -121,7 +121,7 @@ export class Joystick{
     draw(context){
         //DRAW JOYSTICK MOVEMENT LINE
         context.beginPath();
-        context.strokeStyle = this.outerEdge ? "red" : "black";
+        context.strokeStyle = this.outerEdge ? "orange" : "yellow";
         context.moveTo(this.touchStart.x, this.touchStart.y);
         context.lineTo(this.touchEnd.x, this.touchEnd.y);
         context.stroke();
