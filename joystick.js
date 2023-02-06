@@ -140,6 +140,8 @@ export class Joystick{
         context.arc(this.touchStart.x, this.touchStart.y, 8, 0, 2 * Math.PI);
         context.strokeStyle = "grey";
         context.stroke();
+        context.fillStyle = "lightgrey";
+        context.fill();
         
         context.beginPath();
         context.arc(this.touchEnd.x, this.touchEnd.y, 24, 0, 2 * Math.PI);
