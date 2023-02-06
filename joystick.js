@@ -137,7 +137,7 @@ export class Joystick{
         context.stroke();
 
         context.beginPath();
-        context.arc(this.touchStart.x, this.touchStart.y, 8, 0, 2 * Math.PI);
+        context.arc(this.touchStart.x, this.touchStart.y, 6, 0, 2 * Math.PI);
         context.strokeStyle = "grey";
         context.stroke();
         context.fillStyle = "lightgrey";
