@@ -71,7 +71,7 @@ export class Joystick{
             }
         }
 
-        if (resetJoy) this.resetJoy();
+        if (resetJoy || e.touches.length <= 0) this.resetJoy();
     }
 
     calculateJoyValue(touch){
