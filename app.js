@@ -8,9 +8,9 @@ let secondsPassed = 0;
 let oldTimeStamp = 0;
 let fps = 0;
 
-let entity;
 let joystick;
 let wasd;
+let entities = [];
 
 //use to check if user is on mobile to swich from keyboard to youch controls
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -27,12 +27,14 @@ function init(){
     wasd = new WASD();
     joystick = new Joystick(canvas);
 
-    entity = new Entity(
+    const newEntity = new Entity(
         isMobile ? joystick.joystickValue : wasd.inputDirection,
         {x: canvas.width * 0.5, y: canvas.height * 0.5},
         8,
         200
     );
+
+    entities.push(newEntity);
 
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
@@ -58,7 +60,9 @@ function gameLoop(timeStamp) {
 
 function update(secondsPassed) {
     wasd.update();
-    entity.update(secondsPassed);
+    entities.forEach(entity => {
+        entity.update(secondsPassed);
+    });
 }
 
 function draw(context) {
@@ -67,7 +71,13 @@ function draw(context) {
     context.beginPath();
 
     joystick.draw(context);
-    entity.draw(context);
+
+    //combine arrays, sort objects, draw each in order
+    let layeredObjects = [].concat(entities);
+    layeredObjects.sort((a, b) => a.position.y - b.position.y);
+    layeredObjects.forEach(object => {
+        object.draw(context);
+    });
 
     //draw fps
     context.fillStyle = "#fff";
