@@ -31,8 +31,8 @@ onAuthStateChanged(auth, (user) => {
     set(userRef, {
         x: 0,
         y: 0,
-        ix: 0,
-        iy: 0
+        dx: 0,
+        dy: 0
     });
 
     //remove user from db on disconnect
@@ -68,12 +68,12 @@ async function getAllUsers(){
     return snapshot.val();
 }
 
-function updateUserData(id, x, y, input){
+function updateUserData(id, x, y, direction){
     update(ref(db, "users/" + id), {
         x: x,
         y: y,
-        ix: input.x,
-        iy: input.y
+        dx: direction.x,
+        dy: direction.y
     }).catch((error) => {
         console.log(error);
     });
