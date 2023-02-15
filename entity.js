@@ -51,9 +51,8 @@ export class Entity{
     update(secondsPassed){
         if(this.isMine){
             this.handleMovement(secondsPassed);
-            this.handleAnimation(secondsPassed);
         }
-
+        this.handleAnimation(secondsPassed);
     }
 
     draw(context){
