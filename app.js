@@ -112,8 +112,8 @@ async function updateEntities(){
             if(entities[index].id !== myID){
                 entities[index].position.x = dbUsersValues[i].x;
                 entities[index].position.y = dbUsersValues[i].y;
-                entities[index].moveDirection.x = dbUsersValues[i].ix;
-                entities[index].moveDirection.y = dbUsersValues[i].iy; 
+                entities[index].inputDirection.x = dbUsersValues[i].ix;
+                entities[index].inputDirection.y = dbUsersValues[i].iy; 
             }
         }
 

@@ -73,7 +73,7 @@ function updateUserData(id, x, y, input){
         x: x,
         y: y,
         ix: input.x,
-        ix: input.y
+        iy: input.y
     }).catch((error) => {
         console.log(error);
     });
