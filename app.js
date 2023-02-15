@@ -1,3 +1,4 @@
+import { getAllUsers } from "./firebase.js";
 import { Entity } from "./entity.js";
 import { Joystick } from "./joystick.js";
 import { WASD } from "./wasd.js";
@@ -24,8 +25,17 @@ function init(){
     canvas.width = 666;
     canvas.height = 333;
 
+    //get input
     wasd = new WASD();
     joystick = new Joystick(canvas);
+
+
+    async function logUsers(){
+        const allUsers = await getAllUsers();
+        console.log(allUsers);
+    }
+    logUsers();
+    
 
     const newEntity = new Entity(
         isMobile ? joystick.joystickValue : wasd.inputDirection,
