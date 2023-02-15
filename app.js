@@ -97,7 +97,7 @@ async function updateEntities(){
         //create an entity for each one in db, if it doesnt already exist
         if(!entities.some((entity) => entity.id === dbUsersIDs[i])){
             const newEntity = new Entity(
-                {x: 0, y: 0},
+                {x: dbUsersValues[i].dx, y: dbUsersValues[i].dy},
                 {x: canvas.width * 0.5, y: canvas.height * 0.5},
                 8,
                 200
