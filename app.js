@@ -127,7 +127,7 @@ async function updateEntities(){
         //find my index
         const index = entities.findIndex((entity) => entity.id === myID);
         //update my entity data
-        updateUserData(myID, entities[index].position.x, entities[index].position.y, entities[index].moveDirection);    
+        updateUserData(myID, entities[index].position.x, entities[index].position.y, isMobile ? joystick.joystickValue : wasd.inputDirection);    
     }
 
 }
