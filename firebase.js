@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } 
     from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
-import { getDatabase, onDisconnect, ref, set, get, onValue } 
+import { getDatabase, onDisconnect, ref, set, get, update, onValue } 
     from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 
@@ -20,21 +20,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase();
 
-let uid;
-let userRef;
-
 //listener
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
-    uid = user.uid;
-    userRef = ref(db, "users/" + uid);
+    const uid = user.uid;
+    const userRef = ref(db, "users/" + uid);
 
     //set user to db
     set(userRef, {
-        id: uid,
-        x: 666 * 0.5,
-        y: 333 * 0.5,
+        x: 0,
+        y: 0,
         ix: 0,
         iy: 0
     });
@@ -54,10 +50,34 @@ signInAnonymously(auth).catch((error) => {
     );
 });
 
+async function getMyId() {
+    return await signInAnonymously(auth)
+    .then(() => auth.currentUser.uid)
+    .catch((error) => {
+        console.log(
+            "errorCode: " + error.code,
+            "errorMessage: " + error.message
+        );
+        return undefined
+    });
+}
+
 async function getAllUsers(){
     const allUsersRef = ref(db, "users");
     const snapshot = await get(allUsersRef);
     return snapshot.val();
 }
 
-export { getAllUsers };
+function updateUserData(id, x, y, input){
+    update(ref(db, "users/" + id), {
+        x: x,
+        y: y,
+        ix: input.x,
+        ix: input.y
+    }).catch((error) => {
+        console.log(error);
+    });
+}
+
+
+export { getMyId, getAllUsers, updateUserData };

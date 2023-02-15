@@ -2,6 +2,9 @@ import { AnimatedSprite } from "./animatedSprite.js";
 
 export class Entity{
     constructor(inputDirection, startPosition, inputResponsiveness, moveSpeed){
+        this.id;
+        this.isMine = false;
+
         this.inputDirection = inputDirection;
         this.inputSmoothing = {x: 0, y: 0};
         this.velocity = {x: 0, y: 0};
@@ -46,6 +49,30 @@ export class Entity{
     }
 
     update(secondsPassed){
+        if(this.isMine){
+            this.handleMovement(secondsPassed);
+        }
+
+        this.handleAnimation(secondsPassed);
+    }
+
+    draw(context){
+        //draw sprite
+        context.save();
+        context.beginPath();
+        context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
+        context.scale(this.lookingLeft ? -1 : 1, 1);  //This does your mirroring/flipping
+        this.inputValueAbs === 0
+            ? this.idleAnim.drawSprite(context) //draw x/y is 0, position set on translate
+            : this.walkAnim.drawSprite(context); 
+        context.restore();
+    }
+
+    lerp(start, end, t){
+        return  (1 - t) * start + end * t;
+    }
+
+    handleMovement(secondsPassed){
         //smooth input movement using lerp
         this.inputSmoothing.x = this.lerp(this.inputSmoothing.x, this.inputDirection.x, this.inputResponsiveness * secondsPassed);
         this.inputSmoothing.y = this.lerp(this.inputSmoothing.y, this.inputDirection.y, this.inputResponsiveness * secondsPassed);
@@ -61,8 +88,9 @@ export class Entity{
         //move
         this.position.x += this.moveDirection.x * secondsPassed;
         this.position.y += this.moveDirection.y * secondsPassed;
-        
+    }
 
+    handleAnimation(secondsPassed){
         //get abs value of input
         this.inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
         
@@ -107,21 +135,5 @@ export class Entity{
 
         //used for horzontal flip
         this.lookingLeft = this.inputDirection.x < 0 ? true : false;
-    }
-
-    draw(context){
-        //draw sprite
-        context.save();
-        context.beginPath();
-        context.translate(this.position.x, this.position.y);  //location on the canvas to draw your sprite, this is important.
-        context.scale(this.lookingLeft ? -1 : 1, 1);  //This does your mirroring/flipping
-        this.inputValueAbs === 0
-            ? this.idleAnim.drawSprite(context) //draw x/y is 0, position set on translate
-            : this.walkAnim.drawSprite(context); 
-        context.restore();
-    }
-
-    lerp(start, end, t){
-        return  (1 - t) * start + end * t;
     }
 }

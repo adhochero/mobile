@@ -1,4 +1,4 @@
-import { getAllUsers } from "./firebase.js";
+import { getMyId, getAllUsers, updateUserData } from "./firebase.js";
 import { Entity } from "./entity.js";
 import { Joystick } from "./joystick.js";
 import { WASD } from "./wasd.js";
@@ -12,6 +12,7 @@ let fps = 0;
 let joystick;
 let wasd;
 let entities = [];
+let myID;
 
 //use to check if user is on mobile to swich from keyboard to youch controls
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -27,24 +28,13 @@ function init(){
 
     //get input
     wasd = new WASD();
-    joystick = new Joystick(canvas);
+    joystick = new Joystick(canvas);    
 
-
-    async function logUsers(){
-        const allUsers = await getAllUsers();
-        console.log(allUsers);
+    //get my id
+    async function setMyID(){
+        myID = await getMyId();;
     }
-    logUsers();
-    
-
-    const newEntity = new Entity(
-        isMobile ? joystick.joystickValue : wasd.inputDirection,
-        {x: canvas.width * 0.5, y: canvas.height * 0.5},
-        8,
-        200
-    );
-
-    entities.push(newEntity);
+    setMyID();
 
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
@@ -69,6 +59,8 @@ function gameLoop(timeStamp) {
 }
 
 function update(secondsPassed) {
+    updateEntities();
+
     wasd.update();
     entities.forEach(entity => {
         entity.update(secondsPassed);
@@ -94,4 +86,48 @@ function draw(context) {
     context.font = "14px Special Elite";
     context.textAlign = "center";
     context.fillText("FPS: "+ fps, 40, 20);
+}
+
+async function updateEntities(){
+    const allUsers = await getAllUsers();
+    const dbUsersIDs = Object.keys(allUsers);
+    const dbUsersValues =  Object.values(allUsers);
+
+    for (let i = 0; i < dbUsersIDs.length; i++ ){
+        //create an entity for each one in db, if it doesnt already exist
+        if(!entities.some((entity) => entity.id === dbUsersIDs[i])){
+            const newEntity = new Entity(
+                isMobile ? joystick.joystickValue : wasd.inputDirection,
+                {x: canvas.width * 0.5, y: canvas.height * 0.5},
+                8,
+                200
+            );
+            newEntity.id = dbUsersIDs[i];
+            if(newEntity.id === myID) newEntity.isMine = true;
+            entities.push(newEntity);
+        }
+        //for existing entities update position with data from database
+        else{
+            const index = entities.findIndex((entity) => entity.id === dbUsersIDs[i]);
+            if(entities[index].id !== myID){
+                entities[index].position.x = dbUsersValues[i].x;
+                entities[index].position.y = dbUsersValues[i].y;
+                entities[index].moveDirection.x = dbUsersValues[i].ix;
+                entities[index].moveDirection.y = dbUsersValues[i].iy; 
+            }
+        }
+
+        for (let i = 0; i < entities.length; i++ ){
+            //remove any existing entities that are not in the db
+            if(!dbUsersIDs.some((id) => id === entities[i].id)){
+                entities.splice(i, 1);
+            }
+        }
+    
+        //find my index
+        const index = entities.findIndex((entity) => entity.id === myID);
+        //update my entity data
+        updateUserData(myID, entities[index].position.x, entities[index].position.y, entities[index].inputDirection);    
+    }
+
 }
