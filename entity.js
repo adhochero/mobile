@@ -92,7 +92,7 @@ export class Entity{
 
     handleAnimation(secondsPassed){
         //get abs value of input
-        this.inputValueAbs = Math.abs(this.inputDirection.x) + Math.abs(this.inputDirection.y);
+        this.inputValueAbs = Math.abs(this.moveDirection.x) + Math.abs(this.moveDirection.y);
         
         //switch between idle and walk
         if(this.inputValueAbs === 0){
@@ -103,12 +103,12 @@ export class Entity{
         //sprite update
         this.walkAnim.updateSprite(secondsPassed);
         
-        //adjust secPerFrame according to inputDirection value
+        //adjust secPerFrame according to moveDirection value
         this.walkAnim.secPerFrame  = Math.min(this.walkSecPerFrameMin / this.inputValueAbs, this.walkSecPerFrameMax);
 
         //get dot value of normalized input
-        const magnitude = Math.sqrt(this.inputDirection.x * this.inputDirection.x + this.inputDirection.y * this.inputDirection.y);
-        const normalized = {x: this.inputDirection.x / magnitude, y: this.inputDirection.y / magnitude};
+        const magnitude = Math.sqrt(this.moveDirection.x * this.moveDirection.x + this.moveDirection.y * this.moveDirection.y);
+        const normalized = {x: this.moveDirection.x / magnitude, y: this.moveDirection.y / magnitude};
         const dot = normalized.x * 0 + normalized.y * 1;
         
         //change sprite row for direction
@@ -134,6 +134,6 @@ export class Entity{
         }
 
         //used for horzontal flip
-        this.lookingLeft = this.inputDirection.x < 0 ? true : false;
+        this.lookingLeft = this.moveDirection.x < 0 ? true : false;
     }
 }
