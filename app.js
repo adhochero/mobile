@@ -104,7 +104,7 @@ async function updateEntities(){
             );
             newEntity.id = dbUsersIDs[i];
             if (newEntity.id === myID) newEntity.isMine = true;
-            //else newEntity.inputDirection = {x: 0, y: 0};
+            else newEntity.inputDirection = {x: 0, y: 0};
             entities.push(newEntity);
         }
         //for existing entities update position with data from database
