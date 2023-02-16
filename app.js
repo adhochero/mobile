@@ -91,9 +91,19 @@ function draw(context) {
 async function updateEntities(){
     const allUsers = await getAllUsers();
     const dbUsersIDs = Object.keys(allUsers);
-    const dbUsersValues =  Object.values(allUsers);
+
+    // for (let i = 0; i < entities.length; i++ ){
+    //     //remove any existing entities that are not in the db
+    //     if(!dbUsersIDs.some((id) => id === entities[i].id)){
+    //         entities.splice(i, 1);
+    //     }
+    // }
+
+    entities = entities.filter((entity) => dbUsersIDs.includes(entity.id));
 
     for (let i = 0; i < dbUsersIDs.length; i++ ){
+        const dbUser = allUsers.val()[dbUsersIDs[i]];
+
         //create new entity for each one in db, if it doesnt already exist
         if(!entities.some((entity) => entity.id === dbUsersIDs[i])){
             const newEntity = new Entity(
@@ -111,24 +121,16 @@ async function updateEntities(){
         else{
             const index = entities.findIndex((entity) => entity.id === dbUsersIDs[i]);
             if(entities[index].id !== myID){
-                entities[index].position.x = dbUsersValues[i].x;
-                entities[index].position.y = dbUsersValues[i].y;
-                entities[index].inputDirection.x = dbUsersValues[i].dx;
-                entities[index].inputDirection.y = dbUsersValues[i].dy; 
+                entities[index].position.x = dbUser.x;
+                entities[index].position.y = dbUser.y;
+                entities[index].inputDirection.x = dbUser.dx;
+                entities[index].inputDirection.y = dbUser.dy; 
             }
         }
-
-        for (let i = 0; i < entities.length; i++ ){
-            //remove any existing entities that are not in the db
-            if(!dbUsersIDs.some((id) => id === entities[i].id)){
-                entities.splice(i, 1);
-            }
-        }
-    
-        //find my index
-        const index = entities.findIndex((entity) => entity.id === myID);
-        //update my entity data
-        updateUserData(myID, entities[index].position.x, entities[index].position.y, isMobile ? joystick.joystickValue : wasd.inputDirection);    
     }
-
+    
+    //find my index
+    const index = entities.findIndex((entity) => entity.id === myID);
+    //update my entity data
+    updateUserData(myID, entities[index].position.x, entities[index].position.y, isMobile ? joystick.joystickValue : wasd.inputDirection);    
 }
