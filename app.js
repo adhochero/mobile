@@ -102,7 +102,7 @@ async function updateEntities(){
     entities = entities.filter((entity) => dbUsersIDs.includes(entity.id));
 
     for (let i = 0; i < dbUsersIDs.length; i++ ){
-        const dbUser = allUsers.val()[dbUsersIDs[i]];
+        const dbUser = allUsers[dbUsersIDs[i]].val();
 
         //create new entity for each one in db, if it doesnt already exist
         if(!entities.some((entity) => entity.id === dbUsersIDs[i])){
