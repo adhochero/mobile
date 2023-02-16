@@ -94,7 +94,7 @@ async function updateEntities(){
     const dbUsersValues =  Object.values(allUsers);
 
     for (let i = 0; i < dbUsersIDs.length; i++ ){
-        //create an entity for each one in db, if it doesnt already exist
+        //create new entity for each one in db, if it doesnt already exist
         if(!entities.some((entity) => entity.id === dbUsersIDs[i])){
             const newEntity = new Entity(
                 isMobile ? joystick.joystickValue : wasd.inputDirection,
@@ -104,7 +104,7 @@ async function updateEntities(){
             );
             newEntity.id = dbUsersIDs[i];
             if (newEntity.id === myID) newEntity.isMine = true;
-            else newEntity.inputDirection = {x: 0, y: 0};
+            //else newEntity.inputDirection = {x: 0, y: 0};
             entities.push(newEntity);
         }
         //for existing entities update position with data from database
