@@ -2,6 +2,7 @@ import { getMyId, getAllUsers, updateUserData } from "./firebase.js";
 import { Entity } from "./entity.js";
 import { Joystick } from "./joystick.js";
 import { WASD } from "./wasd.js";
+import { Environment } from './environment.js'
 
 let canvas;
 let context;
@@ -13,6 +14,7 @@ let joystick;
 let wasd;
 let entities = [];
 let myID;
+let environment;
 
 //use to check if user is on mobile to swich from keyboard to youch controls
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -25,6 +27,9 @@ function init(){
     context = canvas.getContext('2d');
     canvas.width = 666;
     canvas.height = 333;
+
+    //create new Environment
+    environment = new Environment();
 
     //get input
     wasd = new WASD();
@@ -64,6 +69,10 @@ function update(secondsPassed) {
     wasd.update();
     entities.forEach(entity => {
         entity.update(secondsPassed);
+        environment.walls.forEach(wall => {
+            if(checkCollision(entity, wall)) wall.color = "grey";
+            else wall.color = "black";
+        });
     });
 }
 
@@ -71,15 +80,27 @@ function draw(context) {
     // clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
-
-    joystick.draw(context);
-
+    
+    context.save();
+    let myIndex = entities.findIndex((entity) => entity.id === myID);
+    //cam follow player
+    if(entities.length > 0) context.translate(-entities[myIndex].position.x + canvas.width / 2, -entities[myIndex].position.y + canvas.height / 2);
+    
+    //draw environment
+    environment.draw(context);
+    
     //combine arrays, sort objects, draw each in order
     let layeredObjects = [].concat(entities);
     layeredObjects.sort((a, b) => a.position.y - b.position.y);
     layeredObjects.forEach(object => {
         object.draw(context);
     });
+    
+    context.restore();
+
+
+    //draw joystick
+    joystick.draw(context);
 
     //draw fps
     context.fillStyle = "#fff";
@@ -130,4 +151,11 @@ async function updateEntities(){
     const index = entities.findIndex((entity) => entity.id === myID);
     //update my entity data
     updateUserData(myID, entities[index].position.x, entities[index].position.y, isMobile ? joystick.joystickValue : wasd.inputDirection);    
+}
+
+function checkCollision(player, wall){
+    return (player.position.x - 20 < wall.x + wall.width/2 &&
+      player.position.x + 20 > wall.x - wall.width/2 &&
+      player.position.y - 20 < wall.y + wall.height/2 &&
+      player.position.y> wall.y - wall.height/2)
 }
